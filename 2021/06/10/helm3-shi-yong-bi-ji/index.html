@@ -1,0 +1,2300 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Helm3使用笔记, Pensieve">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Helm3使用笔记 | Pensieve</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Pensieve</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Pensieve</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Helm3使用笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Helm/">
+                                <span class="chip bg-color">Helm</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                技术
+                            </a>
+                        
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="post-category">
+                                云原生
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-06-10
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    8.5k
+                </div>
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="关于-Helm"><a href="#关于-Helm" class="headerlink" title="关于 Helm"></a>关于 Helm</h2><h3 id="什么是-Helm？"><a href="#什么是-Helm？" class="headerlink" title="什么是 Helm？"></a>什么是 Helm？</h3><p>Helm 是一个简化安装和管理 Kubernetes 应用程序的工具，可以将其视为 Kubernetes 的 <code>apt/yum/homebrew</code><br>Helm 是用于管理 Charts 的工具，Charts 是预先配置的 Kubernetes 资源的软件包。<br>官网：<a target="_blank" rel="noopener" href="https://helm.sh/">https://helm.sh</a></p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><ol>
+<li>查找并使用 Helm Charts 将应用程序部署在 Kubernetes 上</li>
+<li>通过 Helm Charts 将应用程序共享</li>
+<li>对 Kubernetes 应用程序实现可重复构建</li>
+<li>简便管理 Kubernetes 清单文件</li>
+<li>管理 Helm 包的发布</li>
+</ol>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>Chart： Helm 应用(package)，包括对资源的定义及相关镜像的引用，还有模板文件、Values 文件等<br>Repository： Chart 仓库，http/https 服务器，Chart 的程序包放在这里<br>Release： Chart 的部署实例，每个 Chart 可以部署一个或多个 Release</p>
+<h3 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h3><ul>
+<li><p>在 Helm 2 中，Tiller 是作为一个 Deployment 部署在 kube-system 命名空间中，很多情况下，我们会为 Tiller 准备一个 ServiceAccount ，这个 ServiceAccount 通常拥有集群的所有权限。<br>用户可以使用本地 Helm 命令，自由地连接到 Tiller 中并通过 Tiller 创建、修改、删除任意命名空间下的任意资源。</p>
+</li>
+<li><p>在 Helm 3 中，Tiller 被移除了。新的 Helm 客户端会像 kubectl 命令一样，读取本地的 kubeconfig 文件，使用我们在 kubeconfig 中预先定义好的权限来进行一系列操作。</p>
+</li>
+</ul>
+<h2 id="Helm-安装"><a href="#Helm-安装" class="headerlink" title="Helm 安装"></a>Helm 安装</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># tar包安装
+mkdir /software cd /software
+wget https://get.helm.sh/helm-v3.3.0-linux-amd64.tar.gz
+tar xf helm-v3.3.0-linux-amd64.tar.gz
+cp linux-amd64/helm /usr/local/bin/helm
+
+# 脚本安装
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+# 源码安装
+git clone https://github.com/helm/helm.git
+cd helm &amp;&amp; make
+
+# 命令补全插件
+apt install bash-completion -y
+source /usr/share/bash-completion/bash_completion
+echo "source &lt;(helm completion bash)" &gt;&gt; ~/.bash_profile
+source !$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="查看版本"><a href="#查看版本" class="headerlink" title="查看版本"></a>查看版本</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm version
+version.BuildInfo{Version:"v3.5.4", GitCommit:"1b5edb69df3d3a08df77c9902dc17af864ff05d1", GitTreeState:"clean", GoVersion:"go1.15.11"}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="Helm-使用"><a href="#Helm-使用" class="headerlink" title="Helm 使用"></a>Helm 使用</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">completion       生成自动补全脚本
+create           创建一个给定名称的chart
+dependency       管理chart的依赖关系
+env              helm环境信息
+get              获取给定release的扩展信息
+help             命令帮助
+history          获取release历史
+install          部署chart
+lint             对chart进行语法检查
+list             releases列表，list可简写为ls
+package          打包chart
+plugin           install、list、uninstall Helm插件
+pull             从repo中下载chart并（可选）将其解压到本地目录
+repo             add、list、remove、update、index Helm的repo
+rollback         回滚release到一个以前的版本
+search           查询在charts中的关键字
+show             显示chart的信息
+status           显示给定release的状态
+template         本地渲染模板
+test             测试运行release
+uninstall        删除release
+upgrade          升级release
+verify           验证给定路径的chart是否已签名且有效
+version          显示helm的版本信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="添加-Repo-源"><a href="#添加-Repo-源" class="headerlink" title="添加 Repo 源"></a>添加 Repo 源</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm repo add stable http://mirror.azure.cn/kubernetes/charts
+helm repo add aliyun https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
+helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com
+helm repo list
+helm repo update
+
+helm search repo stable                                 #查询stable repo可用的charts
+helm repo remove incubator                              #删除incubator repo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="查看-Chart-信息"><a href="#查看-Chart-信息" class="headerlink" title="查看 Chart 信息"></a>查看 Chart 信息</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm show chart stable/mysql
+helm show all stable/mysql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="安装-Chart"><a href="#安装-Chart" class="headerlink" title="安装 Chart"></a>安装 Chart</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm install redis stable/redis -n default              #部署chart到k8s
+helm ls                                                 #查看所有release
+NAME 	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART       	APP VERSION
+redis	default  	1       	2020-08-18 15:37:32.388925542 +0800 CST	deployed	redis-10.5.7	5.0.7
+
+helm status redis                                       #查看release状态
+helm uninstall redis                                    #删除release<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><p>Charts 除了可以在 repo 中下载，还可以自己自定义，创建完成后通过 helm 部署到 k8s。</p>
+<h4 id="拉取"><a href="#拉取" class="headerlink" title="拉取"></a>拉取</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm pull stable/mysql
+ls
+  mysql-1.6.6.tgz
+tar xf mysql-1.6.6.tgz
+tree mysql
+  mysql
+  ├── Chart.yaml
+  ├── README.md
+  ├── templates
+  │   ├── configurationFiles-configmap.yaml
+  │   ├── deployment.yaml
+  │   ├── _helpers.tpl
+  │   ├── initializationFiles-configmap.yaml
+  │   ├── NOTES.txt
+  │   ├── pvc.yaml
+  │   ├── secrets.yaml
+  │   ├── serviceaccount.yaml
+  │   ├── servicemonitor.yaml
+  │   ├── svc.yaml
+  │   └── tests
+  │       ├── test-configmap.yaml
+  │       └── test.yaml
+  └── values.yaml
+  2 directories, 15 files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到，一个 chart 包就是一个文件夹的集合，文件夹名称就是 chart 包的名称。<br>chart 是包含至少两项内容的 helm 软件包：<br>一个或多个模板，其中包含 Kubernetes 清单文件：</p>
+<ul>
+<li>NOTES.txt: chart 的“帮助文本”，在用户运行 helm install 时显示给用户</li>
+<li>deployment.yaml: 创建 deployment 的基本 manifest</li>
+<li>service.yaml: 为 deployment 创建 service 的基本 manifest</li>
+<li>ingress.yaml: 创建 ingress 对象的资源清单文件</li>
+<li>_helpers.tpl: 放置模板助手的地方，可以在整个 chart 中重复使用</li>
+</ul>
+<h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><p>以 nginx 为例，创建自定义的 chart。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm create nginx
+tree nginx
+
+  nginx
+  ├── charts
+  ├── Chart.yaml
+  ├── templates
+  │   ├── deployment.yaml
+  │   ├── _helpers.tpl
+  │   ├── hpa.yaml
+  │   ├── ingress.yaml
+  │   ├── NOTES.txt
+  │   ├── serviceaccount.yaml
+  │   ├── service.yaml
+  │   └── tests
+  │       └── test-connection.yaml
+  └── values.yaml
+
+  3 directories, 10 files
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cat nginx/templates/deployment.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> include "nginx.fullname" . <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> include "nginx.labels" . <span class="token punctuation">|</span> nindent 4 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> if not .Values.autoscaling.enabled <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.replicaCount <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> include "nginx.selectorLabels" . <span class="token punctuation">|</span> nindent 6 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.podAnnotations <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+        <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> toYaml . <span class="token punctuation">|</span> nindent 8 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> include "nginx.selectorLabels" . <span class="token punctuation">|</span> nindent 8 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.imagePullSecrets <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token key atrule">imagePullSecrets</span><span class="token punctuation">:</span>
+        <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> toYaml . <span class="token punctuation">|</span> nindent 8 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token key atrule">serviceAccountName</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> include "nginx.serviceAccountName" . <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token key atrule">securityContext</span><span class="token punctuation">:</span>
+        <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> toYaml .Values.podSecurityContext <span class="token punctuation">|</span> nindent 8 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Chart.Name <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">securityContext</span><span class="token punctuation">:</span>
+            <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> toYaml .Values.securityContext <span class="token punctuation">|</span> nindent 12 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">image</span><span class="token punctuation">:</span> <span class="token string">"{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"</span>
+          <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.image.pullPolicy <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> http
+              <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+              <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+          <span class="token key atrule">livenessProbe</span><span class="token punctuation">:</span>
+            <span class="token key atrule">httpGet</span><span class="token punctuation">:</span>
+              <span class="token key atrule">path</span><span class="token punctuation">:</span> /
+              <span class="token key atrule">port</span><span class="token punctuation">:</span> http
+          <span class="token key atrule">readinessProbe</span><span class="token punctuation">:</span>
+            <span class="token key atrule">httpGet</span><span class="token punctuation">:</span>
+              <span class="token key atrule">path</span><span class="token punctuation">:</span> /
+              <span class="token key atrule">port</span><span class="token punctuation">:</span> http
+          <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+            <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> toYaml .Values.resources <span class="token punctuation">|</span> nindent 12 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.nodeSelector <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+        <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> toYaml . <span class="token punctuation">|</span> nindent 8 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.affinity <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token key atrule">affinity</span><span class="token punctuation">:</span>
+        <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> toYaml . <span class="token punctuation">|</span> nindent 8 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.tolerations <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token key atrule">tolerations</span><span class="token punctuation">:</span>
+        <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> toYaml . <span class="token punctuation">|</span> nindent 8 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在<code>templates</code>目录下<code>yaml</code>文件中的变量，是在<code>nginx/values.yaml</code>中定义的，只需要修改<code>nginx/values.yaml</code>的内容，也就完成了<code>templates</code>目录下<code>yaml</code>文件的配置。</p>
+<h4 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vim nginx/Chart.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v2
+<span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">description</span><span class="token punctuation">:</span> A Helm chart for Kubernetes
+<span class="token key atrule">type</span><span class="token punctuation">:</span> application <span class="token comment">#chart类型，application或library</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> 0.1.0 <span class="token comment">#chart版本</span>
+<span class="token key atrule">appVersion</span><span class="token punctuation">:</span> 1.0.0 <span class="token comment">#application部署版本```</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vim tomcat/values.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">replicaCount</span><span class="token punctuation">:</span> <span class="token number">1</span>
+<span class="token key atrule">image</span><span class="token punctuation">:</span>
+  <span class="token key atrule">repository</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">pullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+  <span class="token key atrule">tag</span><span class="token punctuation">:</span> <span class="token string">"latest"</span>
+<span class="token key atrule">imagePullSecrets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token key atrule">nameOverride</span><span class="token punctuation">:</span> <span class="token string">""</span>
+<span class="token key atrule">fullnameOverride</span><span class="token punctuation">:</span> <span class="token string">""</span>
+<span class="token key atrule">serviceAccount</span><span class="token punctuation">:</span>
+  <span class="token key atrule">create</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">""</span>
+<span class="token key atrule">podAnnotations</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token key atrule">podSecurityContext</span><span class="token punctuation">:</span>
+  <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token comment"># fsGroup: 2000</span>
+<span class="token key atrule">securityContext</span><span class="token punctuation">:</span>
+  <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token comment"># capabilities:</span>
+  <span class="token comment">#   drop:</span>
+  <span class="token comment">#   - ALL</span>
+  <span class="token comment"># readOnlyRootFilesystem: true</span>
+  <span class="token comment"># runAsNonRoot: true</span>
+  <span class="token comment"># runAsUser: 1000</span>
+<span class="token key atrule">service</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> ClusterIP
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+<span class="token key atrule">ingress</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token comment"># kubernetes.io/ingress.class: nginx</span>
+    <span class="token comment"># kubernetes.io/tls-acme: "true"</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx.lzxlinux.cn <span class="token comment">#指定ingress域名及路径</span>
+      <span class="token key atrule">paths</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>/<span class="token punctuation">]</span>
+  <span class="token key atrule">tls</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token comment">#  - secretName: chart-example-tls</span>
+  <span class="token comment">#    hosts:</span>
+  <span class="token comment">#      - chart-example.local</span>
+<span class="token key atrule">resources</span><span class="token punctuation">:</span>
+  <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+    <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 100m
+    <span class="token key atrule">memory</span><span class="token punctuation">:</span> 128Mi
+  <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+    <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 100m
+    <span class="token key atrule">memory</span><span class="token punctuation">:</span> 128Mi
+<span class="token key atrule">autoscaling</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">minReplicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">maxReplicas</span><span class="token punctuation">:</span> <span class="token number">100</span>
+  <span class="token key atrule">targetCPUUtilizationPercentage</span><span class="token punctuation">:</span> <span class="token number">80</span>
+  <span class="token comment"># targetMemoryUtilizationPercentage: 80</span>
+<span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token key atrule">tolerations</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token key atrule">affinity</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm install nginx nginx --dry-run --debug                #渲染输出，不进行安装
+helm install nginx nginx -n default             #部署chart，release版本默认为1
+helm ls
+NAME 	NAMESPACE	REVISION	UPDATED                               	STATUS  	CHART      	APP VERSION
+nginx	default  	1       	2020-08-19 16:39:48.80635996 +0800 CST	deployed	nginx-0.1.0	1.0.0
+
+kubectl get pod
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-74865b6d4c-867vm   1/1     Running   0          28s
+
+kubectl get svc
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP   8d
+nginx        ClusterIP   10.108.89.192   &lt;none&gt;        80/TCP    34s
+
+kubectl get ingress
+NAME    CLASS    HOSTS               ADDRESS   PORTS   AGE
+nginx   &lt;none&gt;   nginx.lzxlinux.cn             80      38s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm upgrade nginx nginx                #升级release，release版本加1
+
+kubectl get svc
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP        8d
+nginx        NodePort    10.108.89.192   &lt;none&gt;        80:30080/TCP   14m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h4><p>可以根据 release 版本回滚，</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm history nginx                  #查看release版本历史
+
+REVISION	UPDATED                 	STATUS    	CHART      	APP VERSION	DESCRIPTION
+1       	Wed Aug 19 16:39:48 2020	superseded	nginx-0.1.0	1.0.0      	Install complete
+2       	Wed Aug 19 16:52:14 2020	deployed  	nginx-0.1.0	1.0.0      	Upgrade complete<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm rollback nginx 1               #回滚release到版本1
+Rollback was a success! Happy Helming!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm history nginx
+
+REVISION	UPDATED                 	STATUS    	CHART      	APP VERSION	DESCRIPTION
+1       	Wed Aug 19 16:39:48 2020	superseded	nginx-0.1.0	1.0.0      	Install complete
+2       	Wed Aug 19 16:52:14 2020	superseded	nginx-0.1.0	1.0.0      	Upgrade complete
+3       	Wed Aug 19 16:58:36 2020	deployed  	nginx-0.1.0	1.0.0      	Rollback to 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl get svc
+
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP   8d
+nginx        ClusterIP   10.108.89.192   &lt;none&gt;        80/TCP    19m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl get ingress
+
+NAME    CLASS    HOSTS               ADDRESS   PORTS   AGE
+nginx   &lt;none&gt;   nginx.lzxlinux.cn             80      56s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到，nginx release 已经回滚到版本 1。<br>通常情况下，在配置好 templates 目录下的 kubernetes 清单文件后，后续维护只需要修改 Chart.yaml 和 values.yaml 即可。</p>
+<h3 id="创建-Helm-仓库"><a href="#创建-Helm-仓库" class="headerlink" title="创建 Helm 仓库"></a>创建 Helm 仓库</h3><p>Helm 可以使用私有 Helm 仓库，将自定义的 Chart 推送至仓库。</p>
+<h4 id="安装-Push-插件"><a href="#安装-Push-插件" class="headerlink" title="安装 Push 插件"></a>安装 Push 插件</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm plugin install https://github.com/chartmuseum/helm-push
+helm plugin ls
+
+NAME	VERSION	DESCRIPTION
+push	0.8.1  	Push chart package to ChartMuseum<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="添加-Repo"><a href="#添加-Repo" class="headerlink" title="添加 Repo"></a>添加 Repo</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm repo add reponame http://repourl/reponame/chartname --username=yourname --password=yourpwd
+helm repo ls
+NAME  	URL
+stable	http://mirror.azure.cn/kubernetes/charts
+aliyun	https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
+reponame	http://repourl/reponame/chartname
+
+cd /software
+
+helm push nginx reponame
+
+Pushing nginx-0.1.0.tgz to harbor...
+Done.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="关于-Chart"><a href="#关于-Chart" class="headerlink" title="关于 Chart"></a>关于 Chart</h2><p>Chart 是描述一组 Kubernetes 资源文件的集合。单个 Chart 既可以用于部署简单的应用(单个服务)，也可以部署复杂的应用(多个服务、高可用架构)。<br>使用 <code>helm create &lt;chart name&gt;</code> 命令，可以创建特定结构的目录及文件，之后可以将它们打包到版本存档中进行部署。<br>如果要下载并查看已发布 chart 的文件而不安装它，则可以使用 <code>helm pull &lt;chart repo&gt;/&lt;chart name&gt;</code> 进行操作。</p>
+<h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>Chart 被组织为目录内文件的集合，目录名称就是 Chart 的名称（不包含版本信息）。因此，描述 WordPress 的 Chart 将存储在 wordpress/目录中。</p>
+<p>而在此目录中，Helm 将期望与以下内容匹配的结构：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">wordpress/
+  Chart.yaml            # 包含chart信息的YAML文件
+  LICENSE               # 包含chart许可的纯文本文件（可选）
+  README.md             # README自述文件（可选）
+  values.yaml           # 此chart的默认配置值
+  values.schema.json    # 用于在 values.yaml 上强加结构的JSON模式（可选）
+  charts/               # 包含此chart所依赖的任何charts的目录
+  crds/                 # 自定义资源定义（CRD）
+  templates/            # 模板目录，与值结合时，将生成有效的Kubernetes清单文件
+  templates/NOTES.txt   # 包含简短用法说明的纯文本文件（可选）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Helm 保留了 charts/、crds/和 templates/目录的使用，以及列出的文件名。其他文件将保持原样。</p>
+<h3 id="Chart-yaml"><a href="#Chart-yaml" class="headerlink" title="Chart.yaml"></a>Chart.yaml</h3><p>Chart.yaml 文件是 Chart 所必需的。它包含以下字段:</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> <span class="token comment"># chart API版本 (必需)</span>
+<span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token comment"># chart 名称 (必需)</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token comment"># 版本 (必需, SemVer 2标准)</span>
+<span class="token key atrule">kubeVersion</span><span class="token punctuation">:</span> <span class="token comment"># 所有兼容的Kubernetes 版本 (可选, SemVer 2标准)</span>
+<span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token comment"># 项目单句描述 (可选)</span>
+<span class="token key atrule">type</span><span class="token punctuation">:</span> <span class="token comment"># chart 类型，application 和 library (可选)</span>
+<span class="token key atrule">keywords</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span>  <span class="token comment"># 关于项目的关键字列表 (可选)</span>
+<span class="token key atrule">home</span><span class="token punctuation">:</span> <span class="token comment"># 项目主页的url (可选)</span>
+<span class="token key atrule">sources</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span>  <span class="token comment"># 项目源码的url列表 (可选)</span>
+<span class="token key atrule">dependencies</span><span class="token punctuation">:</span> <span class="token comment"># chart 需求列表 (可选)</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token comment"># chart 名称 (nginx)</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token comment"># chart 版本 ("1.2.3")</span>
+    <span class="token key atrule">repository</span><span class="token punctuation">:</span> <span class="token comment"># repo url ("https://example.com/charts") 或 别名 ("@repo-name")</span>
+    <span class="token key atrule">condition</span><span class="token punctuation">:</span> <span class="token comment"># 一个解析为boolean的yaml路径，用于 启用/禁用 charts (如 subchart1.enabled ) (可选)</span>
+    <span class="token key atrule">tags</span><span class="token punctuation">:</span> <span class="token comment"># (可选)</span>
+      <span class="token punctuation">-</span>  <span class="token comment"># Tags 可以用来对 charts 的 启用/禁用 分组 (可选)</span>
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token comment"># 使用 bool 参数决定是否应该加载 chart (可选)</span>
+    <span class="token key atrule">import-values</span><span class="token punctuation">:</span> <span class="token comment"># (可选)</span>
+      <span class="token punctuation">-</span>  <span class="token comment"># ImportValues 保存源值到要导入父键的映射。每一项可以是一个字符串或一对子/父子列表项 (可选)</span>
+    <span class="token key atrule">alias</span><span class="token punctuation">:</span> <span class="token comment"># 用于 chart 的别名。多次添加相同的 chart 时很有用 (可选)</span>
+<span class="token key atrule">maintainers</span><span class="token punctuation">:</span> <span class="token comment"># (可选)</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token comment"># 维护人员名称 (每个维护人员必需)</span>
+    <span class="token key atrule">email</span><span class="token punctuation">:</span> <span class="token comment"># 维护人员email (每个维护人员可选)</span>
+    <span class="token key atrule">url</span><span class="token punctuation">:</span> <span class="token comment"># 维护人员的url (每个维护人员可选)</span>
+<span class="token key atrule">icon</span><span class="token punctuation">:</span> <span class="token comment"># 作为图标使用的 SVG 或 PNG 图片 的url (可选)</span>
+<span class="token key atrule">appVersion</span><span class="token punctuation">:</span> <span class="token comment"># app 版本 (可选)</span>
+<span class="token key atrule">deprecated</span><span class="token punctuation">:</span> <span class="token comment"># chart 是否已弃用 (可选, boolean)</span>
+<span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+  <span class="token key atrule">example</span><span class="token punctuation">:</span> <span class="token comment"># 按名称键入的注释列表 (可选)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Chart-依赖"><a href="#Chart-依赖" class="headerlink" title="Chart 依赖"></a>Chart 依赖</h3><p>Helm 中，一个 Chart 可能会依赖任意数量的其它 Chart。这些依赖项可以在 Chart.yaml 中通过 dependencies 字段进行动态配置，也可以导入 charts/目录中并手动进行管理。</p>
+<p>当前 Chart 所依赖的 Chart 在 dependencies 字段中定义为列表：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">dependencies</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> apache
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> 1.2.3
+    <span class="token key atrule">repository</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//example.com/charts
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> 3.2.1
+    <span class="token key atrule">repository</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//another.example.com/charts<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>repository 字段是 chart repo 的完整 url。需要注意的是，必须使用 helm repo add <repo url="">本地添加该 repo。可以使用存储库的名称代替 url。</repo></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm repo add example-charts https://example.com/charts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">dependencies</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> apache
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> 1.2.3
+    <span class="token key atrule">repository</span><span class="token punctuation">:</span> <span class="token string">"@example-charts"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>定义依赖项后，可以运行 helm dependency update <chart name="">，它将使用依赖项文件将所有指定的 Chart 下载到您的 charts/目录中。</chart></p>
+<h3 id="依赖项别名"><a href="#依赖项别名" class="headerlink" title="依赖项别名"></a>依赖项别名</h3><p>除上述字段外，每个依赖项都可以包含可选字段 Alias。</p>
+<p>为依赖的 Chart 添加别名，将 Chart 置于依赖关系中时将使用别名作为依赖项的名称。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">dependencies</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> subchart
+    <span class="token key atrule">repository</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">10191</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> 0.1.0
+    <span class="token key atrule">alias</span><span class="token punctuation">:</span> new<span class="token punctuation">-</span>subchart<span class="token punctuation">-</span><span class="token number">1</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> subchart
+    <span class="token key atrule">repository</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">10191</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> 0.1.0
+    <span class="token key atrule">alias</span><span class="token punctuation">:</span> new<span class="token punctuation">-</span>subchart<span class="token punctuation">-</span><span class="token number">2</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> subchart
+    <span class="token key atrule">repository</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">10191</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> 0.1.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在上面的示例中，将获得 3 个依赖项：</p>
+<ul>
+<li>subchart</li>
+<li>new-subchart-1</li>
+<li>new-subchart-2</li>
+</ul>
+<h3 id="依赖项标签和条件"><a href="#依赖项标签和条件" class="headerlink" title="依赖项标签和条件"></a>依赖项标签和条件</h3><p>除上述字段外，每个依赖项还可以包含可选字段 Tags 和 Condition。</p>
+<p>默认情况下会加载所有 Chart。如果存在 Tags 或 Condition 字段，则它们将被用于控制应用它们的 Chart 的加载。</p>
+<p>Condition 字段包含一个或多个 Yaml 路径（以逗号分隔）。如果此路径存在于父 Chart 的 Values 中并解析为布尔值，则将基于该布尔值 启用/禁用 Chart。仅列表中找到的第一个路径有效，如果不存在路径，则该条件无效。</p>
+<p>Tags 字段是与该 Chart 关联的 Yaml 标签列表。在父 Chart 的 Values 中，可以通过指定标签和布尔值来 启用/禁用 所有带有标签的 chart。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">dependencies</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> subchart1
+    <span class="token key atrule">repository</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">10191</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> 0.1.0
+    <span class="token key atrule">condition</span><span class="token punctuation">:</span> subchart1.enabled<span class="token punctuation">,</span> global.subchart1.enabled
+    <span class="token key atrule">tags</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> front<span class="token punctuation">-</span>end
+      <span class="token punctuation">-</span> subchart1
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> subchart2
+    <span class="token key atrule">repository</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">10191</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> 0.1.0
+    <span class="token key atrule">condition</span><span class="token punctuation">:</span> subchart2.enabled<span class="token punctuation">,</span>global.subchart2.enabled
+    <span class="token key atrule">tags</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> back<span class="token punctuation">-</span>end
+      <span class="token punctuation">-</span> subchart2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>values.yaml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">subchart1</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">tags</span><span class="token punctuation">:</span>
+  <span class="token key atrule">front-end</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">back-end</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面示例中，所有带有标签 front-end 都将被禁用，但是由于 subchart1.enabled 路径在父 chart 的 Values 中为 true，因此条件将覆盖 front-end 标签并启用 subchart1。</p>
+<p>由于 subchart2 带有标签 back-end，且 back-end 为 true，subchart2 将被启用。另外，尽管 subchart2 指定了条件，但父 Chart 的 Values 中没有相应的路径和值，因此该条件无效。</p>
+<p><code>--set</code>参数可以用于更改标签和条件值</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm install --set tags.front-end=true --set subchart2.enabled=false<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="标签和条件解析"><a href="#标签和条件解析" class="headerlink" title="标签和条件解析"></a>标签和条件解析</h3><ul>
+<li><p>条件（有设置时）始终会覆盖标签。存在的第一个条件路径获胜，后续条件路径将被忽略</p>
+</li>
+<li><p>如果 chart 的任何标签为 true，则启用该 chart</p>
+</li>
+<li><p>标签和条件值必须设置在父 chart 的 Values 中</p>
+</li>
+<li><p>tags：父 chart 的 Values 中的键必须是顶级键；不支持全局和嵌套表</p>
+</li>
+</ul>
+<h2 id="Helm-内置对象"><a href="#Helm-内置对象" class="headerlink" title="Helm 内置对象"></a>Helm 内置对象</h2><p>对象从模板引擎传递到模板中。</p>
+<p>对象可以很简单，只有一个值；或者可以包含其他对象或函数。例如，<code>Release</code> 对象包含多个对象（如 <code>Release.Name</code>）并且 Files 对象具有一些函数。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">Release</span><span class="token punctuation">:</span> 此对象描述发行版本身。它里面有几个对象
+<span class="token punctuation">-</span> <span class="token key atrule">Release.Name</span><span class="token punctuation">:</span> release 名称
+<span class="token punctuation">-</span> <span class="token key atrule">Release.Namespace</span><span class="token punctuation">:</span> release 的 namespace（如果清单未覆盖）
+<span class="token punctuation">-</span> <span class="token key atrule">Release.IsUpgrade</span><span class="token punctuation">:</span> 如果当前操作是upgrade或rollback，则设置为 true
+<span class="token punctuation">-</span> <span class="token key atrule">Release.IsInstall</span><span class="token punctuation">:</span> 如果当前操作是install，则设置为 true
+<span class="token punctuation">-</span> <span class="token key atrule">Release.Revision</span><span class="token punctuation">:</span> release的版本号。初始部署时为1，并且每次升级或回滚时加1
+<span class="token punctuation">-</span> <span class="token key atrule">Release.Service</span><span class="token punctuation">:</span> release 服务的名称。在Helm上，始终是Helm
+
+<span class="token key atrule">Values</span><span class="token punctuation">:</span> 从 values.yaml 文件和用户提供的文件传入模板的值，默认情况下 Values 为空
+
+<span class="token key atrule">Chart</span><span class="token punctuation">:</span> Chart.yaml 文件的内容。Chart.yaml 中的任何数据都可以在此处访问
+
+<span class="token key atrule">Files</span><span class="token punctuation">:</span> 提供对 chart 中所有非特殊文件的访问。不能使用它来访问模板，但是可以使用它来访问 chart 中的其他文件：
+<span class="token punctuation">-</span> <span class="token key atrule">Files.Get</span><span class="token punctuation">:</span> 是用于通过名称（.Files.Get config.ini）获取文件的函数
+<span class="token punctuation">-</span> <span class="token key atrule">Files.GetBytes</span><span class="token punctuation">:</span> 是将文件内容作为字节数组而不是字符串获取的函数
+<span class="token punctuation">-</span> <span class="token key atrule">Files.Glob</span><span class="token punctuation">:</span> 是一个函数，该函数返回名称与给定的Shell Glob模式匹配的文件列表
+<span class="token punctuation">-</span> <span class="token key atrule">Files.Lines</span><span class="token punctuation">:</span> 是逐行读取文件的函数，对于遍历文件很有用
+<span class="token punctuation">-</span> <span class="token key atrule">Files.AsSecrets</span><span class="token punctuation">:</span> 是将文件主体作为Base64编码的字符串返回的函数
+<span class="token punctuation">-</span> <span class="token key atrule">Files.AsConfig</span><span class="token punctuation">:</span> 是一个将文件正文作为YAML映射返回的函数
+
+<span class="token key atrule">Capabilities</span><span class="token punctuation">:</span> 提供了有关Kubernetes集群支持哪些功能的信息
+<span class="token punctuation">-</span> <span class="token key atrule">Capabilities.APIVersions</span><span class="token punctuation">:</span> 是一组版本
+<span class="token punctuation">-</span> <span class="token key atrule">Capabilities.APIVersions.Has $version</span><span class="token punctuation">:</span> 指示版本（例如 batch/v1）或资源（例如 apps/v1/Deployment）在集群上是否可用
+<span class="token punctuation">-</span> <span class="token key atrule">Capabilities.KubeVersion 和 Capabilities.KubeVersion.Version</span><span class="token punctuation">:</span> 是Kubernetes版本
+<span class="token punctuation">-</span> <span class="token key atrule">Capabilities.KubeVersion.Major</span><span class="token punctuation">:</span> 是Kubernetes的主要版本
+<span class="token punctuation">-</span> <span class="token key atrule">Capabilities.KubeVersion.Minor</span><span class="token punctuation">:</span> 是Kubernetes的次要版本
+
+
+<span class="token key atrule">Template</span><span class="token punctuation">:</span> 包含有关正在执行的当前模板的信息
+
+    <span class="token key atrule">Template.Name</span><span class="token punctuation">:</span> 当前模板的命名空间文件路径（例如 mychart/templates/mytemplate.yaml）
+
+    <span class="token key atrule">Template.BasePath</span><span class="token punctuation">:</span> 当前 chart 的模板目录的命名空间路径（例如 mychart/templates）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上⾯的值可用于任何顶级模板，要注意内置值始终以大写字母开头。</p>
+<h3 id="values-yaml"><a href="#values-yaml" class="headerlink" title="values.yaml"></a>values.yaml</h3><p>helm 模板提供的内置对象之一是 <code>Values</code>，该对象提供对传递到 chart 中的值的访问。其内容来自多种来源：</p>
+<ol>
+<li>chart 中的 values.yaml 文件</li>
+<li>如果是子 chart，则是父 chart 中的 values.yaml 文件</li>
+<li>helm install 或 helm upgrade 带的 -f 参数指定的 yaml 文件（如 helm install -f myvals.yaml ./mychart）</li>
+<li>通过 –set 参数传递的值（如 helm install –set foo=bar ./mychart）</li>
+</ol>
+<p>上面按顺序排列：values.yaml 是默认值，可以被父 chart 的 values.yaml 覆盖，而后者可以由用户提供的 yaml 文件覆盖，而后者又可以由 –set 参数覆盖。</p>
+<p>示例 values.yaml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">favorite</span><span class="token punctuation">:</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> coffee
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> pizza<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>根据示例 values.yaml，可以这样修改模板：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favorite.drink <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favorite.food <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="模板函数和管道"><a href="#模板函数和管道" class="headerlink" title="模板函数和管道"></a>模板函数和管道</h3><p>当将 .Values 对象中的字符串注入到模板时，可以通过调用模板函数 quote 来引用这些字符串：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> quote .Values.favorite.drink <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> quote .Values.favorite.food <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>模板函数遵循语法：functionName arg1 arg2…，在上面代码段中，quote .Values.favorite.drink 调用 quote 函数并将其传递给单个参数。</p>
+<h4 id="管道-‘-’"><a href="#管道-‘-’" class="headerlink" title="管道 ‘|’"></a>管道 ‘|’</h4><p>管道 <code>|</code> 是将一系列模板命令链接在一起的工具，以紧凑地表达一系列转换。管道 <code>|</code> 是按顺序完成多项工作的有效方式。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favorite.drink <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favorite.food <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面示例中，没有调用，而是反转了顺序。使用管道 <code>|</code> 将参数“发送”到函数：<code>.Values.favorite.food | quote</code></p>
+<pre><code>反转顺序是模板中的常见做法，.val | quote 比 quote .val 更为常见。
+</code></pre>
+<p>使用管道，可以将多个功能链接在一起：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favorite.drink <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favorite.food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>该模板产生以下输出：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> trendsetting<span class="token punctuation">-</span>p<span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token string">"coffee"</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token string">"PIZZA"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面示例中，已经将 pizza 转换为 “PIZZA”。</p>
+<h4 id="default-函数"><a href="#default-函数" class="headerlink" title="default 函数"></a>default 函数</h4><p>default 函数允许在模板内部指定默认值，以防省略该值。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favorite.drink <span class="token punctuation">|</span> default "tea" <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favorite.food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>values.yaml 中可以注释 drink，得到输出：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> fair<span class="token punctuation">-</span>worm<span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token string">"tea"</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token string">"PIZZA"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在实际 Chart 中，所有默认值都应该配置在 values.yaml 中，并且不应使用 default 函数重复。</p>
+<h4 id="lookup-函数"><a href="#lookup-函数" class="headerlink" title="lookup 函数"></a>lookup 函数</h4><p>lookup 函数可用于在运行中的集群中查找资源。</p>
+<p>参数的组合：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl get pod mypod -n mynamespace  →   lookup "v1" "Pod" "mynamespace" "mypod"
+
+kubectl get pods -n mynamespace       →   lookup "v1" "Pod" "mynamespace" ""
+
+kubectl get pods --all-namespaces     →   lookup "v1" "Pod" "" ""
+
+kubectl get namespace mynamespace     →   lookup "v1" "Namespace" "" "mynamespace"
+
+kubectl get namespaces                →   lookup "v1" "Namespace" "" ""<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>当 lookup 返回一个对象时，它将返回一个字典，可以进一步从字典中提取特定值。</p>
+<p>例如，返回该 mynamespace 对象存在的注释：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">(lookup "v1" "Namespace" "" "mynamespace").metadata.annotations<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>当 lookep 返回一个对象列表时，可以通过 items 字段访问对象列表：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> range $index<span class="token punctuation">,</span> $service <span class="token punctuation">:</span>= (lookup "v1" "Service" "mynamespace" "").items <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span>/* do something with each service <span class="token important">*/</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>如果找不到对象，则返回一个空值。</p>
+<p>lookup 函数使用 Helm 现有的 Kubernetes 连接配置来查询 Kubernetes。如果在与调用 API 服务器进行交互时返回任何错误（例如缺乏访问资源的权限），则模板处理将失败。</p>
+<p>需要注意的是，在 helm template 或 helm install|update|delete|rollback –dry-run 期间，Helm 不会与 Kubernetes API Server 联系，因此在这种情况下 lookup 函数将返回 nil。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">indent</span><span class="token punctuation">:</span> 从左到右指定空格个数
+
+<span class="token key atrule">with</span><span class="token punctuation">:</span> 可以允许将当前范围 . 设置为特定的对象。例如 .Values.service，使用 with 可以将 .Values.service 改为 .
+
+<span class="token key atrule">变量</span><span class="token punctuation">:</span> 在 Helm 模板中，变量是对另一个对象的命名引用。它遵循这个形式 $name。变量被赋予一个特殊的赋值操作符：<span class="token punctuation">:</span>=<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Capabilities-APIVersions-Has-函数"><a href="#Capabilities-APIVersions-Has-函数" class="headerlink" title=".Capabilities.APIVersions.Has 函数"></a>.Capabilities.APIVersions.Has 函数</h4><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">.Capabilities.APIVersions.Has 函数返回API版本或资源在集群中是否可用。
+.Capabilities.APIVersions.Has "apps/v1"
+.Capabilities.APIVersions.Has "apps/v1/Deployment"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="其它常用函数"><a href="#其它常用函数" class="headerlink" title="其它常用函数"></a>其它常用函数</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">and         返回两个参数的布尔值和
+or          返回两个参数的布尔值或。它返回第一个非空参数或最后一个参数
+not         返回其参数的布尔取反
+eq          如果Arg1 = Arg2，则返回true，否则返回false
+ne          如果Arg1 != Arg2，则返回true，否则返回false
+lt          如果Arg1 &lt; Arg2，则返回true，否则返回false
+le          如果Arg1 &lt;= Arg2，则返回true，否则返回false
+gt          如果Arg1 &gt; Arg2，则返回true，否则返回false
+ge          如果Arg1 &gt;= Arg2，则返回true，否则返回false
+lower       将整个字符串转换为小写
+upper       将整个字符串转换为大写
+repeat      重复给定字符串多次
+substr      从字符串获取子字符串
+nospace     从字符串中删除所有空格
+indent      indent 函数将给定字符串中的每一行缩进到指定的缩进宽度
+nindent     nindent 函数与 indent 函数相同，但是在字符串的开头添加了新行
+replace     执行简单的字符串替换
+reverse     用给定列表的元素，生成一个新列表，顺序与原列表相反
+uniq        生成一个列表，删除所有重复项
+has         测试列表是否具有特定元素，返回true，否则返回false
+slice       获取列表部分元素，列表切片
+until       生成一个顺序的整数列表
+untilStep   和 until 一样，生成一个顺序的整数列表，但 untilStep 允许定义开始、结束和步长
+seq         类似 seq 命令，生成参数之间的所有整数，默认步长为1或-1，单调递增或递减
+add         相加
+add1        加1
+sub         相减
+div         相除
+mul         相乘
+max         最大值
+min         最小值
+floor       返回 &lt;= 输入值的最大浮点数
+ceil        返回 &gt;= 输入值的最大浮点数
+round       四舍五入，返回一个浮点数
+len         以整数形式返回参数的长度
+base        返回路径的最后一个元素
+dir         返回目录，去除路径的最后一部分
+clean       清理路径，只保留路径开头和结尾
+ext         返回文件扩展名
+isAbs       检查文件路径是否是绝对路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Helm 包含许多模板函数，可以在模板中使用它们。常用函数：<a target="_blank" rel="noopener" href="https://helm.sh/docs/chart_template_guide/function_list/">https://helm.sh/docs/chart_template_guide/function_list/</a></p>
+<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><p>控制结构（在模板中被称为“动作”）提供了控制模板生成流程的能力。helm 的模板语言提供以下控制结构：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">if/else     用于创建条件块
+with        指定范围
+range       提供“针对每个”样式的循环<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>除此之外，helm 还提供了一些声明和使用命名模板段的操作：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">define      在模板中声明一个新的命名模板
+template    导入命名模板
+block       声明一种特殊的可填充模板区域<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="if-else"><a href="#if-else" class="headerlink" title="if/else"></a>if/else</h3><h4 id="基础结构"><a href="#基础结构" class="headerlink" title="基础结构"></a>基础结构</h4><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> if PIPELINE <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token comment"># Do something</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> else if OTHER PIPELINE <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token comment"># Do something else</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> else <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token comment"># Default case</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果值为以下内容，pipeline 为 false：</p>
+<ol>
+<li>布尔值 false</li>
+<li>数字 0</li>
+<li>空字符串</li>
+<li>nil（empty 或 null）</li>
+<li>空集合（map，slice，tuple，dict，array）</li>
+</ol>
+<p>在其他条件下，pipeline 为 true。</p>
+<p><strong>示例</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favorite.drink <span class="token punctuation">|</span> default "tea" <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favorite.food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span> if eq .Values.favorite.drink "coffee" <span class="token punctuation">}</span><span class="token punctuation">}</span>mug<span class="token punctuation">:</span> true<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> eyewitness<span class="token punctuation">-</span>elk<span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token string">"coffee"</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token string">"PIZZA"</span>
+  <span class="token key atrule">mug</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="with"><a href="#with" class="headerlink" title="with"></a>with</h3><p>with 控制变量作用域。. 是对当前范围的引用，而 .Values 告诉模板 Values 在当前范围内查找对象。</p>
+<p>with 的语法类似于一个简单的 if 语句：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> with PIPELINE <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token comment"># restricted scope</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>with 可以将当前范围 . 设置为特定对象：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .drink <span class="token punctuation">|</span> default "tea" <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>但是需要注意，在受限范围内，将无法使用 . 从父 chart 范围访问其他对象：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .drink <span class="token punctuation">|</span> default "tea" <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">release</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>由于 Release.Name 不在 . 的限制范围内，因此会报错。但是可以使用 重置作用域：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .drink <span class="token punctuation">|</span> default "tea" <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">release</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>还可以用 $ 从父 chart 范围访问对象 Release.name。模板执行开始时将 $ 映射到根作用域，并且在模板执行期间不会更改。以下内容也可以工作：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .drink <span class="token punctuation">|</span> default "tea" <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">release</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> $.Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="range"><a href="#range" class="headerlink" title="range"></a>range</h3><p>在 helm 的模板语言中，迭代集合的方法是使用 range 运算符。</p>
+<p>示例：</p>
+<p>values.yaml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">favorite</span><span class="token punctuation">:</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> coffee
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> pizza
+<span class="token key atrule">pizzaToppings</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> mushrooms
+  <span class="token punctuation">-</span> cheese
+  <span class="token punctuation">-</span> peppers
+  <span class="token punctuation">-</span> onions<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .drink <span class="token punctuation">|</span> default "tea" <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">toppings</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> range .Values.pizzaToppings <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token punctuation">-</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> . <span class="token punctuation">|</span> title <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>以下内容也可以工作：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .drink <span class="token punctuation">|</span> default "tea" <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">toppings</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> range $.Values.pizzaToppings <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token punctuation">-</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> . <span class="token punctuation">|</span> title <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> edgy<span class="token punctuation">-</span>dragonfly<span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token string">"coffee"</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token string">"PIZZA"</span>
+  <span class="token key atrule">toppings</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+    <span class="token punctuation">-</span> <span class="token string">"Mushrooms"</span>
+    <span class="token punctuation">-</span> <span class="token string">"Cheese"</span>
+    <span class="token punctuation">-</span> <span class="token string">"Peppers"</span>
+    <span class="token punctuation">-</span> <span class="token string">"Onions"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>在 helm 模板中，变量是对另一个对象的命名引用。它遵循以下形式：<code>$name</code>，变量使用特殊的赋值运算符<code>:=</code>。</p>
+<p>在前面的示例中，此代码会失败：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .drink <span class="token punctuation">|</span> default "tea" <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">release</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Release.Name 不在该代码 with 块限制的范围之内。可以将上面代码重写为对变量使用 Release.Name：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> $relname <span class="token punctuation">:</span>= .Release.Name <span class="token punctuation">-</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .drink <span class="token punctuation">|</span> default "tea" <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .food <span class="token punctuation">|</span> upper <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">release</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> $relname <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> viable<span class="token punctuation">-</span>badger<span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token string">"coffee"</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token string">"PIZZA"</span>
+  <span class="token key atrule">release</span><span class="token punctuation">:</span> viable<span class="token punctuation">-</span>badger<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>变量在 range 循环中特别有用。它们可以用于类似列表的对象，以同时捕获索引和值：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">toppings</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> range $index<span class="token punctuation">,</span> $topping <span class="token punctuation">:</span>= .Values.pizzaToppings <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span> $index <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> $topping <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注意，range 首先跟的是变量，然后是赋值运算符，然后是列表。这会将整数索引（从零开始）分配给 <code>$index</code>，并将值分配给<code>$topping</code>。</p>
+<p><strong>输出</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">toppings</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+  <span class="token key atrule">0</span><span class="token punctuation">:</span> mushrooms
+  <span class="token key atrule">1</span><span class="token punctuation">:</span> cheese
+  <span class="token key atrule">2</span><span class="token punctuation">:</span> peppers
+  <span class="token key atrule">3</span><span class="token punctuation">:</span> onions<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>对于同时具有键和值的数据结构，可以使用 range 两者来获取。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> range $key<span class="token punctuation">,</span> $val <span class="token punctuation">:</span>= .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span> $key <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> $val <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> eager<span class="token punctuation">-</span>rabbit<span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token string">"coffee"</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token string">"pizza"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>变量通常不是“全局”的，它们的作用域仅限于声明它们的块。$ 变量是全局变量，该变量始终指向根上下文。</p>
+<h2 id="命名模板"><a href="#命名模板" class="headerlink" title="命名模板"></a>命名模板</h2><p>命名模板也称为部分模板或子模板，是一个简单的文件中定义的、并且给定名称的模板。_helpers.tpl 文件是命名模板的默认位置。</p>
+<p>命名模板需要注意的是，模板名称是全局的，如果声明了两个相同名称的模板，则以最后加载的那个为准。</p>
+<p>通常的命名约定是在每个定义的模板前添加 chart 名称：<code>{{ define "mychart.labels" }}</code>。通过使用特定的 chart 名称作为前缀，可以避免由于模板名称相同而引起的任何冲突。</p>
+<h3 id="define"><a href="#define" class="headerlink" title="define"></a>define</h3><p>define 操作可以在模板文件内部创建命名模板，语法如下：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> define "MY.NAME" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token comment"># body of template here</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>定义一个模板来封装 Kubernetes 标签块，示例：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> define "mychart.labels" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">generator</span><span class="token punctuation">:</span> helm
+    <span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> now <span class="token punctuation">|</span> htmlDate <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>将此模板嵌入到现有的 ConfigMap 中，然后将其包含在 template 操作中：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> define "mychart.labels" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">generator</span><span class="token punctuation">:</span> helm
+    <span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> now <span class="token punctuation">|</span> htmlDate <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> template "mychart.labels" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> range $key<span class="token punctuation">,</span> $val <span class="token punctuation">:</span>= .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span> $key <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> $val <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> running<span class="token punctuation">-</span>panda<span class="token punctuation">-</span>configmap
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">generator</span><span class="token punctuation">:</span> helm
+    <span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token datetime number">2016-11-02</span>
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token string">"coffee"</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token string">"pizza"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>helm chart 通常将这些模板放在 _helpers.tpl 文件中，然后可以在 ConfigMap 中调用：</p>
+<p>_helpers.tpl</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span>/* Generate basic labels <span class="token important">*/</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> define "mychart.labels" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">generator</span><span class="token punctuation">:</span> helm
+    <span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> now <span class="token punctuation">|</span> htmlDate <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> template "mychart.labels" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> range $key<span class="token punctuation">,</span> $val <span class="token punctuation">:</span>= .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span> $key <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> $val <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>模板范围</strong><br>_helpers.tpl</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span>/* Generate basic labels <span class="token important">*/</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> define "mychart.labels" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">generator</span><span class="token punctuation">:</span> helm
+    <span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> now <span class="token punctuation">|</span> htmlDate <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token key atrule">chart</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Chart.Name <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Chart.Version <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> template "mychart.labels" . <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm install --dry-run --debug plinking-anaco ./mychart<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>输出：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> plinking<span class="token punctuation">-</span>anaco<span class="token punctuation">-</span>configmap
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">generator</span><span class="token punctuation">:</span> helm
+    <span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token datetime number">2016-11-02</span>
+    <span class="token key atrule">chart</span><span class="token punctuation">:</span> mychart
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> 0.1.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>当命名模板（使用 define 创建的模板）被渲染时，它将接收 template 调用传递的范围。</p>
+<h3 id="include-函数"><a href="#include-函数" class="headerlink" title="include 函数"></a>include 函数</h3><p>示例：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> define "mychart.app" <span class="token punctuation">-</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">app_name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Chart.Name <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">app_version</span><span class="token punctuation">:</span> <span class="token string">"{{ .Chart.Version }}"</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">-</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span> template "mychart.app" . <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> range $key<span class="token punctuation">,</span> $val <span class="token punctuation">:</span>= .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span> $key <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> $val <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> template "mychart.app" . <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输出：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> measly<span class="token punctuation">-</span>whippet<span class="token punctuation">-</span>configmap
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app_name</span><span class="token punctuation">:</span> mychart
+<span class="token key atrule">app_version</span><span class="token punctuation">:</span> <span class="token string">"0.1.0+1478129847"</span>
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token string">"coffee"</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token string">"pizza"</span>
+  <span class="token key atrule">app_name</span><span class="token punctuation">:</span> mychart
+<span class="token key atrule">app_version</span><span class="token punctuation">:</span> <span class="token string">"0.1.0+1478129847"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到，app_version 的缩进是错误的，因为 template 是操作而不是函数，所以无法将 template 调用的输出传递给其他函数。</p>
+<p>helm 提供了一种替代方法，include 可以将模板的内容导入到当前 pipeline 中，然后可以将其传递给 pipeline 中的其它函数。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> include "mychart.app" . <span class="token punctuation">|</span> indent 4 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> range $key<span class="token punctuation">,</span> $val <span class="token punctuation">:</span>= .Values.favorite <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span> $key <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> $val <span class="token punctuation">|</span> quote <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> include "mychart.app" . <span class="token punctuation">|</span> indent 2 <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> edgy<span class="token punctuation">-</span>mole<span class="token punctuation">-</span>configmap
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app_name</span><span class="token punctuation">:</span> mychart
+    <span class="token key atrule">app_version</span><span class="token punctuation">:</span> <span class="token string">"0.1.0+1478129987"</span>
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token string">"coffee"</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token string">"pizza"</span>
+  <span class="token key atrule">app_name</span><span class="token punctuation">:</span> mychart
+  <span class="token key atrule">app_version</span><span class="token punctuation">:</span> <span class="token string">"0.1.0+1478129987"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="访问模板内的文件"><a href="#访问模板内的文件" class="headerlink" title="访问模板内的文件"></a>访问模板内的文件</h2><p>有时要导入文件，而不是模板，可以通过 .Files 描述的对象访问文件来实现。</p>
+<p>helm 提供了通过 .Files 对象访问文件的权限。有几点需要注意：</p>
+<ol>
+<li>在 chart 中可以添加其他文件。但由于 Kubernetes 对象的存储限制，chart 必须小于 1M</li>
+<li>.Files 因为安全原因，某些文件无法通过该对象访问：<ul>
+<li>无法访问 templates/ 中的文件</li>
+<li>无法访问使用 .helmignore 排除的文件</li>
+</ul>
+</li>
+<li>chart 不保留 unix 模式信息，因此文件级权限限制对 .Files 对象的文件可用性没有影响</li>
+</ol>
+<p>示例：<br>编写一个模板，将三个文件读入 ConfigMap。首先向 chart 添加三个文件，将三个文件放入 mychart/ 目录中。</p>
+<p>config1.toml</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">message = Hello from config 1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>config1.toml</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">message = Hello from config 2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>config3.toml</p>
+<pre class="line-numbers language-shell" data-language="shell"><div class="caption"><span>/ yaml</span></div><code class="language-shell">message = Hello from config 3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>使用 range 函数来遍历它们，并将其内容注入到 ConfigMap 中：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> $files <span class="token punctuation">:</span>= .Files <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> range tuple "config1.toml" "config2.toml" "config3.toml" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span> . <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span> $files.Get . <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输出：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> quieting<span class="token punctuation">-</span>giraf<span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">config1.toml</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+    message = Hello from config 1
+
+  <span class="token key atrule">config2.toml</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+    message = This is config 2
+
+  <span class="token key atrule">config3.toml</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+    message = Goodbye from config 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="文件路径处理"><a href="#文件路径处理" class="headerlink" title="文件路径处理"></a>文件路径处理</h3><p>在处理文件时，对文件路径本身执行一些标准操作会非常有用。相关函数有：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">base        返回路径的最后一个元素
+dir         返回目录，去除路径的最后一部分
+clean       清理路径，只保留路径开头和结尾
+ext         返回文件扩展名
+isAbs       检查文件路径是否是绝对路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="glob-模式"><a href="#glob-模式" class="headerlink" title="glob 模式"></a>glob 模式</h3><p>随着 chart 的增长，可能会更需要组织文件。helm 提供了 Files.Glob(pattern string) 方法，用来以 glob 模式灵活地提取某些文件。</p>
+<p>例如，目录结构如下：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">foo/:
+  foo.txt foo.yaml
+
+bar/:
+  bar.go bar.conf baz.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>globs 有多种选择：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> $currentScope <span class="token punctuation">:</span>= .<span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> range $path<span class="token punctuation">,</span> $_ <span class="token punctuation">:</span>=  .Files.Glob  "<span class="token important">**.yaml"</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> with $currentScope<span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token punctuation">{</span><span class="token punctuation">{</span> .Files.Get $path <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>或</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> range $path<span class="token punctuation">,</span> $_ <span class="token punctuation">:</span>=  .Files.Glob  "<span class="token important">**.yaml"</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span><span class="token punctuation">{</span> $.Files.Get $path <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="ConfigMap-和-Secrets-实用函数"><a href="#ConfigMap-和-Secrets-实用函数" class="headerlink" title="ConfigMap 和 Secrets 实用函数"></a>ConfigMap 和 Secrets 实用函数</h3><p>想要将文件内容同时放入 ConfigMap 和 Secrets 中，以便在运行时安装到 pod 中。</p>
+<p>结合 glob 模式，从上面的 glob 示例给出目录结构：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> conf
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> (.Files.Glob "foo/<span class="token important">*").AsConfig</span> <span class="token punctuation">|</span> indent 2 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> very<span class="token punctuation">-</span>secret
+<span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> (.Files.Glob "bar/<span class="token important">*").AsSecrets</span> <span class="token punctuation">|</span> indent 2 <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="编码方式"><a href="#编码方式" class="headerlink" title="编码方式"></a>编码方式</h3><p>可以导入文件并使用 base-64 模板对其进行编码，以确保成功传输：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>secret
+<span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">token</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span> .Files.Get "config1.toml" <span class="token punctuation">|</span> b64enc <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输出：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lucky<span class="token punctuation">-</span>turkey<span class="token punctuation">-</span>secret
+<span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">token</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+    bWVzc2FnZSA9IEhlbGxvIGZyb20gY29uZmlnIDEK<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Lines"><a href="#Lines" class="headerlink" title="Lines"></a>Lines</h3><p>有时，需要访问模板中文件的每一行。</p>
+<p>为此 helm 提供了 Lines 方法，Lines 可以使用 range 函数循环遍历：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">some-file.txt</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> range .Files.Lines "foo/bar.txt" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token punctuation">{</span> . <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>在 helm install 期间，无法将外部文件传递给 chart。因此，必须使用 helm install -f 或 helm install –set 加载数据。</p>
+<h2 id="子-chart-和全局-Values"><a href="#子-chart-和全局-Values" class="headerlink" title="子 chart 和全局 Values"></a>子 chart 和全局 Values</h2><p>chart 可以具有依赖项，称为子 chart，子 chart 也有自己的 values 和 templates。</p>
+<p>关于子 chart，有几点主要注意：</p>
+<ol>
+<li>子 chart 被看作“独立的”，它不能显式依赖其父 chart，子 chart 无法访问其父 chart 的 values</li>
+<li>父 chart 可以覆盖子 chart 的 values</li>
+<li>helm 可以设置能被所有 chart 访问的全局 values</li>
+</ol>
+<h3 id="创建子-chart"><a href="#创建子-chart" class="headerlink" title="创建子 chart"></a>创建子 chart</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">helm create mychart
+cd mychart/charts
+helm create mysubchart<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>当子 chart 中 values 的 key 与父 chart 中 values 的 key 相同时，父 chart 的 values 会覆盖子 chart 的 values。</p>
+<h3 id="全局-values"><a href="#全局-values" class="headerlink" title="全局 values"></a>全局 values</h3><p>全局 values 是可以从任何 chart 或子 chart 中以完全相同的名称访问的 values。全局 values 需要显式声明。</p>
+<p>Values.global 可以用来设置全局 values，例如：</p>
+<p>values.yaml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">favorite</span><span class="token punctuation">:</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> coffee
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> pizza
+<span class="token key atrule">pizzaToppings</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> mushrooms
+  <span class="token punctuation">-</span> cheese
+  <span class="token punctuation">-</span> peppers
+  <span class="token punctuation">-</span> onions
+<span class="token key atrule">mysubchart</span><span class="token punctuation">:</span>
+  <span class="token key atrule">dessert</span><span class="token punctuation">:</span> ice cream
+<span class="token key atrule">global</span><span class="token punctuation">:</span>
+  <span class="token key atrule">salad</span><span class="token punctuation">:</span> caesar <span class="token comment">#全局values</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="共享模板"><a href="#共享模板" class="headerlink" title="共享模板"></a>共享模板</h3><p>父 chart 可以与子 chart 共享模板。任何 chart 中任何已定义的模板块都可以用于其它 chart。</p>
+<p>定义一个简单的模板，例如：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> define "labels" <span class="token punctuation">}</span><span class="token punctuation">}</span>from<span class="token punctuation">:</span> mychart<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>include 和 template 函数都可以引用模板，但 include 可以动态引用，而 template 仅接受字符串。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">{</span> <span class="token punctuation">{</span> include $mytemplate <span class="token punctuation">}</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><h3 id="helmignore-文件"><a href="#helmignore-文件" class="headerlink" title=".helmignore 文件"></a>.helmignore 文件</h3><p>.helmignore 文件用于指定不想包含在 helm chart 中的文件。</p>
+<p>如果存在 .helmignore 文件，helm package 命令将忽略该文件中匹配到的所有文件。</p>
+<p>.helmignore 文件支持 unix shell 全局匹配、相对路径匹配和否定（以 ! 前缀）。每行仅支持一种模式。</p>
+<p>示例：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># comment</span>
+.git
+<span class="token important">*/temp*</span>
+<span class="token important">*/*/temp*</span>
+temp<span class="token punctuation">?</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">helm lint                           验证chart是否遵循语法
+helm install <span class="token punctuation">-</span><span class="token punctuation">-</span>dry<span class="token punctuation">-</span>run <span class="token punctuation">-</span><span class="token punctuation">-</span>debug      渲染模板，然后返回生成的kubernetes清单文件
+helm template <span class="token punctuation">-</span><span class="token punctuation">-</span>debug               渲染模板，然后返回生成的kubernetes清单文件
+helm get manifest                   查看服务器上安装了哪些模板<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>当 yaml 无法解析、但想查看生成内容时，可以先在模板中注释掉问题部分，然后重新运行 helm install –dry-run –debug：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v2
+<span class="token comment"># some: problem section</span>
+<span class="token comment"># {{ .Values.foo | quote }}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的内容将渲染并返回完整的注释：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v2
+<span class="token comment"># some: problem section</span>
+<span class="token comment">#  "bar"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Kinson</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.kinson.fun/2021/06/10/helm3-shi-yong-bi-ji/">https://www.kinson.fun/2021/06/10/helm3-shi-yong-bi-ji/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Kinson</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Helm/">
+                                    <span class="chip bg-color">Helm</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'daaf8c1af15f96abdb79',
+        clientSecret: '101569b8c156b6253954e88e1b45f7c4bbd2a078',
+        repo: 'Pensieve-Comments',
+        owner: 'lqs429521992',
+        admin: "lqs429521992",
+        id: '2021-06-10T16-38-52',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/06/15/lvm-xue-xi-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="LVM学习笔记">
+                        
+                        <span class="card-title">LVM学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/LVM/">
+                        <span class="chip bg-color">LVM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/03/24/shu-mei-pai-wen-ti-pai-cha/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="树莓派 问题排查">
+                        
+                        <span class="card-title">树莓派 问题排查</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/%E6%A0%91%E8%8E%93%E6%B4%BE/" class="post-category">
+                                    树莓派
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">Kinson Liu</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">35k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

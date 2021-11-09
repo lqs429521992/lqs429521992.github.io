@@ -1,0 +1,1330 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="LVM学习笔记, Pensieve">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>LVM学习笔记 | Pensieve</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Pensieve</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Pensieve</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">LVM学习笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/LVM/">
+                                <span class="chip bg-color">LVM</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                技术
+                            </a>
+                        
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/" class="post-category">
+                                Linux
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-06-15
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3k
+                </div>
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><strong>写在前面：</strong><br>今天开会讨论了 PH2 相关服务器的部署问题，发现老外创建的系统没有使用 LVM，这对之后的运维工作制造了不必要的麻烦。以前没有详尽的了解过 LVM。正好借着这个机会了解下~</p>
+<h2 id="关于-LVM"><a href="#关于-LVM" class="headerlink" title="关于 LVM"></a>关于 LVM</h2><h3 id="概念解释"><a href="#概念解释" class="headerlink" title="概念解释"></a>概念解释</h3><p>LVM(Logical Volume Manager)逻辑卷管理，是一种将一个或多个硬盘的分区在逻辑上集合，相当于一个大硬盘来使用，当硬盘的空间不够使用的时候，可以继续将其它的硬盘分区加入其中，这样可以实现一种磁盘空间的动态管理，相对于普通的磁盘分区有很大的灵活性，使用普通的磁盘分区，当一个磁盘的分区空间不够使用的时候，很可能带来很大的麻烦。使用 LVM 在一定程度上就可以解决普通磁盘分区带来的问题。</p>
+<h3 id="为什么使用-LVM"><a href="#为什么使用-LVM" class="headerlink" title="为什么使用 LVM"></a>为什么使用 LVM</h3><p>LVM 通常用于装备大量磁盘的系统, 比如服务器中的磁盘阵列。<br>但 LVM 同样适用于仅有一、两块硬盘的小系统。</p>
+<h4 id="小系统使用LVM的益处"><a href="#小系统使用LVM的益处" class="headerlink" title="小系统使用LVM的益处"></a>小系统使用LVM的益处</h4><p><strong>传统的文件系统</strong></p>
+<p>一个文件系统对应一个分区，直观，但不易改变，不同的分区相对独立，无相互联系，各分区空间常常利用不平衡，空间不能充分利用。当一个文件系统／分区已满时，无法对其扩充，只能采用重新分区／建立文件系统，非常麻烦，或把分区中的数据移到另一个更大的分区中；或采用符号连接的方式使用其它分区的空间。如果要把硬盘上的多个分区合并在一起使用，只能采用再分区的方式，这个过程需要数据的备份与恢复。</p>
+<p><strong>采用LVM</strong></p>
+<p>硬盘的多个分区由LVM统一为卷组管理，可以方便的加入或移走分区以扩大或减小卷组的可用容量，充分利用硬盘空间；文件系统建立在逻辑卷上，而逻辑卷可根据需要改变大小(在卷组容量范围内)以满足要求，可以跨分区。</p>
+<h4 id="大系统使用LVM的益处"><a href="#大系统使用LVM的益处" class="headerlink" title="大系统使用LVM的益处"></a>大系统使用LVM的益处</h4><p>在使用很多硬盘的大系统中，使用LVM主要是方便管理、增加了系统的扩展性。用户／用户组的空间建立在LVM上，可以随时按要求增大，或根据使用情况对各逻辑卷进行调整。当系统空间不足而加入新的硬盘时，不必把用户的数据从原硬盘迁移到新硬盘，而只须把新的分区加入卷组并扩充逻辑卷即可。同样，使用LVM可以在不停服务的情况下。把用户数据从旧硬盘转移到新硬盘空间中去。</p>
+<h2 id="LVM原理"><a href="#LVM原理" class="headerlink" title="LVM原理"></a>LVM原理</h2><p>传统文件系统，比如这个盘只有300G，那么建立在这个300G上面的文件系统最多只能用到300G，但是有了LVM这个功能后，我们建立文件系统的盘就不是建立在物理盘上，而是建立在一个叫LV逻辑卷上面，这个卷是一个逻辑概念不是物理盘，空间可能大于一个物理盘，也可能小于一个物理盘。而且这个LV逻辑卷的空间可以扩展和缩小，这样就给上层的文件系统提供了更好的支持。</p>
+<h3 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h3><p><strong>PV(Physical Volume):</strong> 物理卷, 处于 LVM 最底层, 其实就是指一个分区（如/dev/sdb1 ）或者是一个盘（如/dev/sdb）。</p>
+<p><strong>VG(Volume Group):</strong> 卷组, 建立在 PV 之上, 可以含有一个到多个 PV。（相当于一个Pool，由多个PV组成的pool）</p>
+<p><strong>LV(Logical Volume):</strong> 逻辑卷, 建立在 VG 之上, 相当于原来分区的概念, 不过大小可以动态改变。(比如/dev/mapper/rhel-root这个目录其实是一个文件系统挂载点，这个点就是承载在一个LV上，这个文件系统的大小就是这个LV的大小。)</p>
+<h3 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h3><p><img src="/images/lvm.png" alt="LVM原理图"></p>
+<h2 id="普通的挂载磁盘方法"><a href="#普通的挂载磁盘方法" class="headerlink" title="普通的挂载磁盘方法"></a>普通的挂载磁盘方法</h2><h3 id="创建分区的主要操作"><a href="#创建分区的主要操作" class="headerlink" title="创建分区的主要操作"></a>创建分区的主要操作</h3><h4 id="查看分区情况：-fdisk-l"><a href="#查看分区情况：-fdisk-l" class="headerlink" title="查看分区情况： fdisk -l"></a>查看分区情况： fdisk -l</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"> fdisk -l
+
+Disk /dev/sda: 299.0 GB, 298999349248 bytes			# 磁盘/dev/sda
+255 heads, 63 sectors/track, 36351 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x4d69fe0e
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          26      204800   83  Linux		# 分为2个区, sda1
+Partition 1 does not end on cylinder boundary.
+/dev/sda2              26       36352   291785728   8e  Linux LVM	# sda2
+
+# 磁盘/dev/sdb没有分区
+Disk /dev/sdb: 4000.0 GB, 3999999721472 bytes
+255 heads, 63 sectors/track, 486305 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="查看已有磁盘：-lsblk"><a href="#查看已有磁盘：-lsblk" class="headerlink" title="查看已有磁盘： lsblk"></a>查看已有磁盘： lsblk</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"> lsblk
+NAME                       MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda                          8:0    0 278.5G  0 disk
+├─sda1                       8:1    0   200M  0 part /boot
+└─sda2                       8:2    0 278.3G  0 part
+  └─VolGroup-LogVol (dm-0) 253:0    0   1.9T  0 lvm  /		# LVM类型的分区
+sdb                          8:32   0   3.7T  0 disk 		# 还没有分区的新磁盘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="对新磁盘进行分区：-fdisk-dev-sdb"><a href="#对新磁盘进行分区：-fdisk-dev-sdb" class="headerlink" title="对新磁盘进行分区： fdisk /dev/sdb"></a>对新磁盘进行分区： fdisk /dev/sdb</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"> fdisk /dev/sdb
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel
+Building a new DOS disklabel with disk identifier 0xf91f8c4c.
+Changes will remain in memory only, until you decide to write them.
+After that, of course, the previous content won't be recoverable.
+
+Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+
+WARNING: The size of this disk is 4.0 TB (4000225165312 bytes).
+DOS partition table format can not be used on drives for volumes
+larger than (2199023255040 bytes) for 512-byte sectors. Use parted(1) and GUID
+partition table format (GPT).
+
+
+WARNING: DOS-compatible mode is deprecated. It's strongly recommended to
+         switch off the mode (command 'c') and change display units to
+         sectors (command 'u').
+
+Command (m for help): n				# n 表示新建分区
+Command action
+   e   extended
+   p   primary partition (1-4)
+p									# p 表示分区类型为主分区, 主分区只有1-4种选择
+Partition number (1-4): 1			# 主分区的编号
+First cylinder (1-486333, default 1): 	# 开始扇区号, 直接回车, 使用默认值1
+Using default value 1
+
+# 结束扇区号, 使用默认值 --- 这里只加载了新磁盘的一半(2T), 所以还需要再次创建分区/dev/sdb2使用剩下的一半.
+Last cylinder, +cylinders or +size{K,M,G} (1-267349, default 267349):
+Using default value 267349
+
+Command (m for help):  w			#  将上述设置写入分区表并退出
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="再次查看分区情况-fdisk-l"><a href="#再次查看分区情况-fdisk-l" class="headerlink" title="再次查看分区情况 - fdisk -l"></a>再次查看分区情况 - fdisk -l</h4><p>多出来一个/dev/sdb1 的区, 这个 1 就是之前主分区之后指定的分区编号.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"> fdisk -l
+
+Disk /dev/sda: 299.0 GB, 298999349248 bytes
+255 heads, 63 sectors/track, 36351 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x4d69fe0e
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          26      204800   83  Linux
+Partition 1 does not end on cylinder boundary.
+/dev/sda2              26       36352   291785728   8e  Linux LVM
+
+# /dev/sdb磁盘:
+Disk /dev/sdb: 4000.0 GB, 3999999721472 bytes
+255 heads, 63 sectors/track, 486305 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x8f3043b5
+
+# 多出来的分区/dev/sdb1
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               1      267349  2147480811   83  Linux
+
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="查看当前分区表中的分区信息：-cat-proc-partitions"><a href="#查看当前分区表中的分区信息：-cat-proc-partitions" class="headerlink" title="查看当前分区表中的分区信息： cat /proc/partitions"></a>查看当前分区表中的分区信息： cat /proc/partitions</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"> cat /proc/partitions
+major minor  #blocks  name
+
+   8        0   291991552  sda
+   8        1      204800  sda1
+   8        2   291785728  sda2
+   8       32  3906249728  sdb		# 添加的新磁盘
+   8       33  2147480811  sdb1		# 创建的新分区
+ 253        0  2046660608  dm-0
+如果创建完之后，cat /proc/partitions 查看不到对应的分区，使用 parprobe 刷新命令即可:
+
+ partprobe /dev/sdc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="格式化新分区"><a href="#格式化新分区" class="headerlink" title="格式化新分区"></a>格式化新分区</h3><h4 id="格式化新分区-mkfs-t"><a href="#格式化新分区-mkfs-t" class="headerlink" title="格式化新分区: mkfs -t"></a>格式化新分区: mkfs -t</h4><p>这里建议将新分区格式化为 ext4 文件类型，还有 ext2，ext3 等文件类型，区别请参考博客 ext2、ext3 与 ext4 的区别。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"> mkfs -t ext4 /dev/sdb1
+mke2fs 1.41.12 (17-May-2010)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+134217728 inodes, 536870202 blocks
+26843510 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=4294967296
+16384 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+        4096000, 7962624, 11239424, 20480000, 23887872, 71663616, 78675968,
+        102400000, 214990848, 512000000
+
+Writing inode tables:  8874/16384<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>等待一小会后, 将出现下述提示, 说明格式化完成:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Writing inode tables: done
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information:  done
+
+This filesystem will be automatically checked every 26 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="挂载新分区"><a href="#挂载新分区" class="headerlink" title="挂载新分区"></a>挂载新分区</h3><h4 id="创建目录-并将-dev-sdb1-挂在到该目录下"><a href="#创建目录-并将-dev-sdb1-挂在到该目录下" class="headerlink" title="创建目录, 并将 /dev/sdb1 挂在到该目录下:"></a>创建目录, 并将 /dev/sdb1 挂在到该目录下:</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost /]# mkdir data &amp;&amp; cd /data
+[root@localhost data]# mount /dev/sdc1 /data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="查看挂载是否成功"><a href="#查看挂载是否成功" class="headerlink" title="查看挂载是否成功:"></a>查看挂载是否成功:</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost data]# df -l
+Filesystem                   1K-blocks       Used  Available Use% Mounted on
+/dev/mapper/VolGroup-LogVol  286901696   18601728  253726196   7% /
+tmpfs                         66020980          0   66020980   0% /dev/shm
+/dev/sda1                       495844      33476     436768   8% /boot
+
+# 挂载成功:
+/dev/sdb1                   2113784984     202776 2006208168   1% /data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="设置开机自动挂载"><a href="#设置开机自动挂载" class="headerlink" title="设置开机自动挂载"></a>设置开机自动挂载</h3><p>编辑文件 /etc/fstab</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost data]# vim /etc/fstab
+
+# 文件内容如下:
+# /etc/fstab
+# Created by anaconda on Wed Sep 12 10:41:40 2018
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/VolGroup-LogVol  /                     ext4    defaults        1 1
+/dev/sdb1                    /data                 ext4    defaults        1 1
+UUID=22b1d425-d050-43c3-a735-06d48bbb9051 /boot    ext4    defaults        1 2
+tmpfs                        /dev/shm              tmpfs   defaults        0 0
+devpts                       /dev/pts              devpts  gid=5,mode=620  0 0
+sysfs                        /sys                  sysfs   defaults        0 0
+proc                         /proc                 proc    defaults        0 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="LVM-方式挂载磁盘-推荐"><a href="#LVM-方式挂载磁盘-推荐" class="headerlink" title="LVM 方式挂载磁盘(推荐)"></a>LVM 方式挂载磁盘(推荐)</h2><h3 id="创建PV，VG，LV的指令"><a href="#创建PV，VG，LV的指令" class="headerlink" title="创建PV，VG，LV的指令"></a>创建PV，VG，LV的指令</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">创建物理卷
+pvcreate /dev/vdb1            ##创建物理卷/dev/vdb1
+创建物理卷组
+vgcreate vg0 /dev/vdb1        ##创建物理卷组vg0
+创建逻辑卷
+lvcreate -L 300M -n lv0 vg0   ##在vg0卷组上创建名为lv0，大小为300M的逻辑卷<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="创建一个逻辑卷（操作展示）"><a href="#创建一个逻辑卷（操作展示）" class="headerlink" title="创建一个逻辑卷（操作展示）"></a>创建一个逻辑卷（操作展示）</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">fdisk /dev/vda<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="/images/change_disk_type.png" alt="更改分区类型"></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pvcreate /dev/vdb1            #创建物理卷
+vgcreate -s 8M vg0 /dev/vdb1  #创建物理卷组vg0,PE为8M
+lvcreate -L 300M -n lv0 vg0   #在卷组vg0上创建名为lv0，大小为300M的逻辑卷
+mkfs.xfs /dev/vg0/lv0         #格式化逻辑卷并改系统格式为xfs
+mount /dev/vg0/lv0 /mnt       #挂载(linux下的文件系统需要被挂载后才能使用)
+df -h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h3><h4 id="xfs系统中的扩容："><a href="#xfs系统中的扩容：" class="headerlink" title="xfs系统中的扩容："></a>xfs系统中的扩容：</h4><p><strong>情况一：vg足够扩展</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">lvextend -L 500M /dev/vg0/lv0      ##扩展逻辑卷空间到500M
+xfs_growfs /dev/vg0/lv0            ##扩展文件系统<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>情况二：vg不够拉伸，得先扩大设备再扩大系统</strong></p>
+<p>扩大设备</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pvcreate /dev/vdb2        ##创建物理卷/dev/vdb2 
+vgextend vg0 /dev/vdb2    ##将新的物理卷vdb2添加到现有的卷组vg0 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>扩展逻辑卷</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">lvextend -L 1500M /dev/vg0/lv0     ##增加逻辑卷空间到1500M 
+xfs_growfs /dev/vg0/lv0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="ext4系统的扩容"><a href="#ext4系统的扩容" class="headerlink" title="ext4系统的扩容"></a>ext4系统的扩容</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">umount /mnt              ##先卸载 
+mkfs.ext4 /dev/vg0/lv0   ##格式化逻辑卷 ，并改系统为ext4
+mount /dev/vg0/lv0 /mnt/ ##挂载 
+lvextend -L 1800M /dev/vg0/lv0  ##增加逻辑卷空间 
+Extending logical volume lv0 to 1.76 GiB Logical volume lv0 successfully resized 
+resize2fs /dev/vg0/lv0   ##更新逻辑卷信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="缩减逻辑卷空间"><a href="#缩减逻辑卷空间" class="headerlink" title="缩减逻辑卷空间"></a>缩减逻辑卷空间</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">umount /mnt                     ##先卸载
+e2fsck -f /dev/vg0/lv0          ##扫描逻辑卷上的空余空间
+resize2fs /dev/vg0/lv0 1000M    ##设备文件减少到1000M
+lvreduce -L 1000M /dev/vg0/lv0  ##将逻辑卷减少到1000M
+mount /dev/vg0/lv0 /mnt         ##挂载<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="缩减vg：（迁移到闲置设备）"><a href="#缩减vg：（迁移到闲置设备）" class="headerlink" title="缩减vg：（迁移到闲置设备）"></a>缩减vg：（迁移到闲置设备）</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pvmove /dev/vdb1 /dev/vdb2  ##将vdb1的空间数据转移到vdb2
+  /dev/vdb1: Moved: 88.0%
+  /dev/vdb1: Moved: 100.0%  ##转移数据成功
+vgreduce vg0 /dev/vdb1      ##将/dev/vdb1分区从vg0卷组中移除
+  Removed "/dev/vdb1" from volume group "vg0"
+pvremove /dev/vdb1          ##把/dev/vdb1分区从系统中删除
+  Labels on physical volume "/dev/vdb1" successfully wiped<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>注意：将vdb1的空间数据转移到vdb2时，要确保vdb2的足够的空间能将vdb1的数据转移，否则需要先将vdb1缩减。</p>
+</blockquote>
+<h3 id="LVM快照创建"><a href="#LVM快照创建" class="headerlink" title="LVM快照创建"></a>LVM快照创建</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">touch /mnt/file{1..5}
+lvcreate -L 50M -n lv0backup -s /dev/vg0/lv0  ##建立一个50M的快照
+mount /dev/vg0/lv0backup /mnt                 ##挂载快照
+cd /mnt
+ls
+rm -fr *                                   ##删除所有文件
+cd
+umount /mnt
+lvremove /dev/vg0/lv0backup                   ##删除快照
+lvcreate -L 50M -n lv0backup -s /dev/vg0/lv0  ##重建快照
+mount /dev/vg0/lv0backup /mnt                 ##挂载快照
+ls /mnt                                ##又可以看到之前建立的文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>结论： LVM的快照可以将某一时刻的信息记录到快照区中，因此，可以利用这一特点对数据做完全备份。</p>
+<h3 id="删除设备"><a href="#删除设备" class="headerlink" title="删除设备"></a>删除设备</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">umount /mnt  ##卸载
+df -h
+lvremove /dev/vg0/lv0backup    ##删除快照
+lvremove /dev/vg0/lv0         ##删除逻辑卷
+vgremove vg0                  ##删除物理卷组
+pvremove /dev/vdb{1..2}       ##删除物理卷<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Kinson</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.kinson.fun/2021/06/15/lvm-xue-xi-bi-ji/">https://www.kinson.fun/2021/06/15/lvm-xue-xi-bi-ji/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Kinson</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/LVM/">
+                                    <span class="chip bg-color">LVM</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'daaf8c1af15f96abdb79',
+        clientSecret: '101569b8c156b6253954e88e1b45f7c4bbd2a078',
+        repo: 'Pensieve-Comments',
+        owner: 'lqs429521992',
+        admin: "lqs429521992",
+        id: '2021-06-15T13-53-59',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/06/18/consul-xue-xi-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Consul使用笔记">
+                        
+                        <span class="card-title">Consul使用笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6/" class="post-category">
+                                    开源软件
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Consul/">
+                        <span class="chip bg-color">Consul</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/06/10/helm3-shi-yong-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Helm3使用笔记">
+                        
+                        <span class="card-title">Helm3使用笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="post-category">
+                                    云原生
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Helm/">
+                        <span class="chip bg-color">Helm</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">Kinson Liu</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">35k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

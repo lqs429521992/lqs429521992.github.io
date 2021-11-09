@@ -1,0 +1,2369 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Consul使用笔记, Pensieve">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Consul使用笔记 | Pensieve</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Pensieve</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Pensieve</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Consul使用笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Consul/">
+                                <span class="chip bg-color">Consul</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                技术
+                            </a>
+                        
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6/" class="post-category">
+                                开源软件
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-06-18
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    17k
+                </div>
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="使用Consul"><a href="#使用Consul" class="headerlink" title="使用Consul"></a>使用Consul</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Consul包含多个组件,但是作为一个整体,为你的基础设施提供服务发现和服务配置的工具.他提供以下关键特性:</p>
+<p>服务发现 Consul的客户端可用提供一个服务,比如 api 或者mysql ,另外一些客户端可用使用Consul去发现一个指定服务的提供者.通过DNS或者HTTP应用程序可用很容易的找到他所依赖的服务.<br>健康检查 Consul客户端可用提供任意数量的健康检查,指定一个服务(比如:webserver是否返回了200 OK 状态码)或者使用本地节点(比如:内存使用是否大于90%). 这个信息可由operator用来监视集群的健康.被服务发现组件用来避免将流量发送到不健康的主机.<br>Key/Value存储 应用程序可用根据自己的需要使用Consul的层级的Key/Value存储.比如动态配置,功能标记,协调,领袖选举等等,简单的HTTP API让他更易于使用.<br>多数据中心: Consul支持开箱即用的多数据中心.这意味着用户不需要担心需要建立额外的抽象层让业务扩展到多个区域.<br>Consul面向DevOps和应用开发者友好.是他适合现代的弹性的基础设施.</p>
+<p><img src="../images/consul-cluster.png" alt="consul-cluster"></p>
+<h3 id="基础架构"><a href="#基础架构" class="headerlink" title="基础架构"></a>基础架构</h3><p>Consul是一个分布式高可用的系统. 这节将包含一些基础,我们忽略掉一些细节这样你可以快速了解Consul是如何工作的.如果要了解更多细节,请参考深入的架构描述.</p>
+<p>每个提供服务给Consul的阶段都运行了一个Consul agent . 发现服务或者设置和获取 key/value存储的数据不是必须运行agent.这个agent是负责对节点自身和节点上的服务进行健康检查的.</p>
+<p>Agent与一个和多个Consul Server 进行交互.Consul Server 用于存放和复制数据.server自行选举一个领袖.虽然Consul可以运行在一台server , 但是建议使用3到5台来避免失败情况下数据的丢失.每个数据中心建议配置一个server集群.</p>
+<p>你基础设施中需要发现其他服务的组件可以查询任何一个Consul 的server或者 agent.Agent会自动转发请求到server .</p>
+<p>每个数据中运行了一个Consul server集群.当一个跨数据中心的服务发现和配置请求创建时.本地Consul Server转发请求到远程的数据中心并返回结果.</p>
+<p>更多介绍查看官网<a target="_blank" rel="noopener" href="https://www.consul.io/">点击前往</a></p>
+<h3 id="安装Consul"><a href="#安装Consul" class="headerlink" title="安装Consul"></a>安装Consul</h3><p>安装Consul,找到适合你系统的包下载他.Consul打包为一个’Zip’文件.<a target="_blank" rel="noopener" href="https://www.consul.io/downloads.html">前往下载</a></p>
+<p>下载后解开压缩包.拷贝Consul到你的PATH路径中,在Unix系统中<code>~/bin</code>和<code>/usr/local/bin</code>是通常的安装目录.根据你是想为单个用户安装还是给整个系统安装来选择.在Windows系统中有可以安装到%PATH%的路径中.</p>
+<h3 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h3><p>完成安装后,通过打开一个新终端窗口检查<code>consul</code>安装是否成功.通过执行 <code>consul</code>,你应该看到类似下面的输出</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-248 ~]# consul
+usage: consul [--version] [--help] &lt;command&gt; [&lt;args&gt;]
+
+Available commands are:
+    agent          Runs a Consul agent
+    configtest     Validate config file
+    event          Fire a new event
+    exec           Executes a command on Consul nodes
+    force-leave    Forces a member of the cluster to enter the "left" state
+    info           Provides debugging information for operators
+    join           Tell Consul agent to join cluster
+    keygen         Generates a new encryption key
+    keyring        Manages gossip layer encryption keys
+    kv             Interact with the key-value store
+    leave          Gracefully leaves the Consul cluster and shuts down
+    lock           Execute a command holding a lock
+    maint          Controls node or service maintenance mode
+    members        Lists the members of a Consul cluster
+    monitor        Stream logs from a Consul agent
+    operator       Provides cluster-level tools for Consul operators
+    reload         Triggers the agent to reload configuration files
+    rtt            Estimates network round trip time between nodes
+    snapshot       Saves, restores and inspects snapshots of Consul server state
+    version        Prints the Consul version
+    watch          Watch for changes in Consul<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果你得到一个<code>consul not be found</code>的错误,你的<code>PATH</code>可能没有正确设置.请返回检查你的<code>consul</code>的安装路径是否包含在<code>PATH</code>中.</p>
+<h3 id="运行Agent"><a href="#运行Agent" class="headerlink" title="运行Agent"></a>运行Agent</h3><p>完成Consul的安装后,必须运行agent. agent可以运行为<code>server</code>或<code>client</code>模式.每个数据中心至少必须拥有一台server . 建议在一个集群中有3或者5个server.部署单一的server,在出现失败时会不可避免的造成数据丢失.</p>
+<p>其他的agent运行为client模式.一个client是一个非常轻量级的进程.用于注册服务,运行健康检查和转发对server的查询.agent必须在集群中的每个主机上运行.</p>
+<p>查看启动数据中心的细节请查看<a target="_blank" rel="noopener" href="https://www.consul.io/docs/guides/bootstrapping.html">这里</a>.</p>
+<h3 id="启动-Consul-Server"><a href="#启动-Consul-Server" class="headerlink" title="启动 Consul Server"></a>启动 Consul Server</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">consul agent -server -bootstrap-expect 3 -data-dir /tmp/consul -node=s1 -bind=10.201.102.198 -ui-dir ./consul_ui/ -rejoin -config-dir=/etc/consul.d/ -client 0.0.0.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>以<code>server</code>模式,运行cosnul agent</p>
+<ul>
+<li><code>-server</code>: 定义agent运行在server模式</li>
+<li><code>-bootstrap-expect</code>: 在一个datacenter中期望提供的server节点数目, 当该值提供的时候, consul一直等到达到指定sever数目的时候才会引导整个集群, 该标记不能和bootstrap共用</li>
+<li><code>-bind</code>: 该地址用来在集群内部的通讯, 集群内的所有节点到地址都必须是可达的, 默认是0.0.0.0</li>
+<li><code>-node</code>: 节点在集群中的名称, 在一个集群中必须是唯一的, 默认是该节点的主机名</li>
+<li><code>-ui-dir</code>: 提供存放web ui资源的路径, 该目录必须是可读的</li>
+<li><code>-rejoin</code>: 使consul忽略先前的离开, 在再次启动后仍旧尝试加入集群中. </li>
+<li><code>-config-dir</code>: 配置文件目录, 里面所有以.json结尾的文件都会被加载</li>
+<li><code>-client</code>: consul服务侦听地址, 这个地址提供HTTP、DNS、RPC等服务, 默认是127.0.0.1所以不对外提供服务, 如果你要对外提供服务改成0.0.0.0<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 consul]# consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -node=s1 -bind=10.201.102.198 -ui-dir ./consul_ui/ -rejoin -config-dir=/etc/consul.d/ -client 0.0.0.0
+==&gt; WARNING: Expect Mode enabled, expecting 3 servers
+==&gt; Starting Consul agent...
+==&gt; Starting Consul agent RPC...
+==&gt; Consul agent running!
+           Version: 'v0.7.4'
+           Node ID: '422ec677-74ef-8f29-2f22-01effeed6334'
+         Node name: 's1'
+        Datacenter: 'dc1'
+            Server: true (bootstrap: false)
+       Client Addr: 0.0.0.0 (HTTP: 8500, HTTPS: -1, DNS: 8600, RPC: 8400)
+      Cluster Addr: 10.201.102.198 (LAN: 8301, WAN: 8302)
+    Gossip encrypt: false, RPC-TLS: false, TLS-Incoming: false
+             Atlas: &lt;disabled&gt;
+
+==&gt; Log data will now stream in as it occurs:
+
+    2017/03/17 18:03:08 [INFO] raft: Restored from snapshot 139-352267-1489707086023
+    2017/03/17 18:03:08 [INFO] raft: Initial configuration (index=6982): [{Suffrage:Voter ID:10.201.102.199:8300 Address:10.201.102.199:8300} {Suffrage:Voter ID:10.201.102.200:8300 Address:10.201.102.200:8300} {Suffrage:Voter ID:10.201.102.198:8300 Address:10.201.102.198:8300}]
+    2017/03/17 18:03:08 [INFO] raft: Node at 10.201.102.198:8300 [Follower] entering Follower state (Leader: "")
+    2017/03/17 18:03:08 [INFO] serf: EventMemberJoin: s1 10.201.102.198
+    2017/03/17 18:03:08 [INFO] serf: Attempting re-join to previously known node: s2: 10.201.102.199:8301
+    2017/03/17 18:03:08 [INFO] consul: Adding LAN server s1 (Addr: tcp/10.201.102.198:8300) (DC: dc1)
+    2017/03/17 18:03:08 [INFO] consul: Raft data found, disabling bootstrap mode
+    2017/03/17 18:03:08 [INFO] serf: EventMemberJoin: s2 10.201.102.199
+    2017/03/17 18:03:08 [INFO] serf: EventMemberJoin: s3 10.201.102.200
+    2017/03/17 18:03:08 [INFO] serf: Re-joined to previously known node: s2: 10.201.102.199:8301
+    2017/03/17 18:03:08 [INFO] consul: Adding LAN server s2 (Addr: tcp/10.201.102.199:8300) (DC: dc1)
+    2017/03/17 18:03:08 [INFO] consul: Adding LAN server s3 (Addr: tcp/10.201.102.200:8300) (DC: dc1)
+    2017/03/17 18:03:08 [INFO] serf: EventMemberJoin: s1.dc1 10.201.102.198
+    2017/03/17 18:03:08 [INFO] consul: Adding WAN server s1.dc1 (Addr: tcp/10.201.102.198:8300) (DC: dc1)
+    2017/03/17 18:03:08 [WARN] serf: Failed to re-join any previously known node
+    2017/03/17 18:03:14 [INFO] agent: Synced service 'consul'
+    2017/03/17 18:03:14 [INFO] agent: Deregistered service 'consul01'
+    2017/03/17 18:03:14 [INFO] agent: Deregistered service 'consul02'
+    2017/03/17 18:03:14 [INFO] agent: Deregistered service 'consul03'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h4 id="查看集群成员"><a href="#查看集群成员" class="headerlink" title="查看集群成员"></a>查看集群成员</h4><p>新开一个终端窗口运行<code>consul members</code>, 你可以看到Consul集群的成员.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# consul members
+Node  Address              Status  Type    Build  Protocol  DC
+s1    10.201.102.198:8301  alive   server  0.7.4  2         dc1
+s2    10.201.102.199:8301  alive   server  0.7.4  2         dc1
+s3    10.201.102.200:8301  alive   server  0.7.4  2         dc1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="启动-Consul-Client"><a href="#启动-Consul-Client" class="headerlink" title="启动 Consul Client"></a>启动 Consul Client</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">consul agent -data-dir /tmp/consul -node=c1 -bind=10.201.102.248 -config-dir=/etc/consul.d/ -join 10.201.102.198<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>运行cosnul agent以client模式, <code>-join</code> 加入到已有的集群中去. </p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-248 ~]# consul agent -data-dir /tmp/consul -node=c1 -bind=10.201.102.248 -config-dir=/etc/consul.d/ -join 10.201.102.198
+==&gt; Starting Consul agent...
+==&gt; Starting Consul agent RPC...
+==&gt; Joining cluster...
+    Join completed. Synced with 1 initial agents
+==&gt; Consul agent running!
+           Version: 'v0.7.4'
+           Node ID: '564dc0c7-7f4f-7402-a301-cebe7f024294'
+         Node name: 'c1'
+        Datacenter: 'dc1'
+            Server: false (bootstrap: false)
+       Client Addr: 127.0.0.1 (HTTP: 8500, HTTPS: -1, DNS: 8600, RPC: 8400)
+      Cluster Addr: 10.201.102.248 (LAN: 8301, WAN: 8302)
+    Gossip encrypt: false, RPC-TLS: false, TLS-Incoming: false
+             Atlas: &lt;disabled&gt;
+
+==&gt; Log data will now stream in as it occurs:
+
+    2017/03/17 15:35:16 [INFO] serf: EventMemberJoin: c1 10.201.102.248
+    2017/03/17 15:35:16 [INFO] agent: (LAN) joining: [10.201.102.198]
+    2017/03/17 15:35:16 [INFO] serf: EventMemberJoin: s2 10.201.102.199
+    2017/03/17 15:35:16 [INFO] serf: EventMemberJoin: s3 10.201.102.200
+    2017/03/17 15:35:16 [INFO] serf: EventMemberJoin: s1 10.201.102.198
+    2017/03/17 15:35:16 [INFO] agent: (LAN) joined: 1 Err: &lt;nil&gt;
+    2017/03/17 15:35:16 [INFO] consul: adding server s2 (Addr: tcp/10.201.102.199:8300) (DC: dc1)
+    2017/03/17 15:35:16 [INFO] consul: adding server s3 (Addr: tcp/10.201.102.200:8300) (DC: dc1)
+    2017/03/17 15:35:16 [INFO] consul: adding server s1 (Addr: tcp/10.201.102.198:8300) (DC: dc1)
+    2017/03/17 15:35:16 [INFO] agent: Synced node info<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="查看集群成员-1"><a href="#查看集群成员-1" class="headerlink" title="查看集群成员"></a>查看集群成员</h4><p>新开一个终端窗口运行<code>consul members</code>, 你可以看到Consul集群的成员.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-248 ~]# consul members
+Node  Address              Status  Type    Build  Protocol  DC
+c1    10.201.102.248:8301  alive   client  0.7.4  2         dc1
+s1    10.201.102.198:8301  alive   server  0.7.4  2         dc1
+s2    10.201.102.199:8301  alive   server  0.7.4  2         dc1
+s3    10.201.102.200:8301  alive   server  0.7.4  2         dc1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="加入集群"><a href="#加入集群" class="headerlink" title="加入集群"></a>加入集群</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-248 ~]# consul join 10.201.102.198
+Node  Address              Status  Type    Build  Protocol  DC
+c1    10.201.102.248:8301  alive   client  0.7.4  2         dc1
+s1    10.201.102.198:8301  alive   server  0.7.4  2         dc1
+s2    10.201.102.199:8301  alive   server  0.7.4  2         dc1
+s3    10.201.102.200:8301  alive   server  0.7.4  2         dc1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="停止Agent"><a href="#停止Agent" class="headerlink" title="停止Agent"></a>停止Agent</h3><p>你可以使用<code>Ctrl-C</code> 优雅的关闭Agent. 中断Agent之后你可以看到他离开了集群并关闭.</p>
+<p>在退出中,Consul提醒其他集群成员,这个节点离开了.如果你强行杀掉进程.集群的其他成员应该能检测到这个节点失效了.当一个成员离开,他的服务和检测也会从目录中移除.当一个成员失效了,他的健康状况被简单的标记为危险,但是不会从目录中移除.Consul会自动尝试对失效的节点进行重连.允许他从某些网络条件下恢复过来.离开的节点则不会再继续联系.</p>
+<p>此外,如果一个agent作为一个服务器,一个优雅地离开是很重要的,可以避免引起潜在的可用性故障影响达成<a target="_blank" rel="noopener" href="https://www.consul.io/docs/internals/consensus.html">一致性协议</a>.</p>
+<p>查看<a target="_blank" rel="noopener" href="https://www.consul.io/docs/internals/consensus.html">这里</a>了解添加和移除server.</p>
+<h3 id="更新服务"><a href="#更新服务" class="headerlink" title="更新服务"></a>更新服务</h3><p>服务定义可以通过配置文件并发送<code>SIGHUP</code>给agent来进行更新.这样你可以让你在不关闭服务或者保持服务请求可用的情况下进行更新.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">consul reload<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>另外 HTTP API可以用来动态的添加,移除和修改服务.</p>
+<h3 id="注册服务"><a href="#注册服务" class="headerlink" title="注册服务"></a>注册服务</h3><p>搭建好conusl集群后, 用户或者程序就能到consul中去查询或者注册服务. 可以通过提供服务定义文件或者调用HTTP API来注册一个服务.</p>
+<p>首先,为Consul配置创建一个目录.Consul会载入配置文件夹里的所有配置文件.在Unix系统中通常类似 <code>/etc/consul.d</code> (.d 后缀意思是这个路径包含了一组配置文件).</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir /etc/consul.d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后,我们将编写服务定义配置文件.假设我们有一个名叫<code>web</code>的服务运行在 80端口.另外,我们将给他设置一个标签.这样我们可以使用他作为额外的查询方式:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">echo '{"service": {"name": "web", "tags": ["rails"], "port": 80}}' &gt;/etc/consul.d/web.json<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>现在重启agent , 设置配置目录:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -node=s1 -bind=10.201.102.198 -rejoin -config-dir=/etc/consul.d/ -client 0.0.0.0
+
+...
+    [INFO] agent: Synced service 'web'
+...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><code>-data-dir</code>: 提供一个目录用来存放agent的状态, 所有的agent允许都需要该目录, 该目录必须是稳定的, 系统重启后都继续存在<br>你可能注意到了输出了 “synced” 了 web这个服务.意思是这个agent从配置文件中载入了服务定义,并且成功注册到服务目录.</li>
+</ul>
+<p>如果你想注册多个服务,你应该在Consul配置目录创建多个服务定义文件.</p>
+<p>HTTP API注册服务,curl命令或者postman 以<code>PUT</code>方式请求consul HTTP API更多细节<a target="_blank" rel="noopener" href="https://www.consul.io/docs/agent/http/catalog.html#catalog_register">点击查看</a></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl -X PUT -d '{"Datacenter": "dc1", "Node": "c2", "Address": "10.155.0.106", "Service": {"Service": "MAC", "tags": ["lianglian", "Mac"], "Port": 22}}' http://127.0.0.1:8500/v1/catalog/register<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="查询服务"><a href="#查询服务" class="headerlink" title="查询服务"></a>查询服务</h3><p>一旦agent启动并且服务同步了.我们可以通过DNS或者HTTP的API来查询服务.</p>
+<h4 id="DNS-API"><a href="#DNS-API" class="headerlink" title="DNS API"></a>DNS API</h4><p>让我们首先使用DNS API来查询.在DNS API中,服务的DNS名字是 <code>NAME.service.consul</code>. 虽然是可配置的,但默认的所有DNS名字会都在<code>consul</code>命名空间下.这个子域告诉Consul,我们在查询服务,<code>NAME</code>则是服务的名称.</p>
+<p>对于我们上面注册的Web服务.它的域名是 <code>web.service.consul</code> :</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# dig @127.0.0.1 -p 8600 web.service.consul
+
+; &lt;&lt;&gt;&gt; DiG 9.8.2rc1-RedHat-9.8.2-0.17.rc1.el6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 8600 web.service.consul
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 39468
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+;; WARNING: recursion requested but not available
+
+;; QUESTION SECTION:
+;web.service.consul.            IN      A
+
+;; ANSWER SECTION:
+web.service.consul.     0       IN      A       10.201.102.198
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#8600(127.0.0.1)
+;; WHEN: Tue Mar 28 16:10:24 2017
+;; MSG SIZE  rcvd: 52
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如你所见,一个<code>A</code>记录返回了一个可用的服务所在的节点的IP地址.A`记录只能设置为IP地址. 有也可用使用 DNS API 来接收包含 地址和端口的 SRV记录:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# dig @127.0.0.1 -p 8600 web.service.consul SRV
+
+; &lt;&lt;&gt;&gt; DiG 9.8.2rc1-RedHat-9.8.2-0.17.rc1.el6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 8600 web.service.consul SRV
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 13331
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; QUESTION SECTION:
+;web.service.consul.            IN      SRV
+
+;; ANSWER SECTION:
+web.service.consul.     0       IN      SRV     1 1 80 s1.node.dc1.consul.
+
+;; ADDITIONAL SECTION:
+s1.node.dc1.consul.     0       IN      A       10.201.102.198
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#8600(127.0.0.1)
+;; WHEN: Tue Mar 28 16:10:56 2017
+;; MSG SIZE  rcvd: 84<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>SRV</code>记录告诉我们 <code>web</code> 这个服务运行于节点<code>dhcp-10-201-102-198</code> 的<code>80</code>端口. DNS额外返回了节点的A记录.</p>
+<p>最后,我们也可以用 DNS API 通过标签来过滤服务.基于标签的服务查询格式为<code>TAG.NAME.service.consul</code>. 在下面的例子中,我们请求Consul返回有 <code>rails</code>标签的 <code>web</code>服务.我们成功获取了我们注册为这个标签的服务:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# dig @127.0.0.1 -p 8600 rails.web.service.consul SRV
+
+; &lt;&lt;&gt;&gt; DiG 9.8.2rc1-RedHat-9.8.2-0.17.rc1.el6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 8600 rails.web.service.consul SRV
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 37307
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; QUESTION SECTION:
+;rails.web.service.consul.      IN      SRV
+
+;; ANSWER SECTION:
+rails.web.service.consul. 0     IN      SRV     1 1 80 s1.node.dc1.consul.
+
+;; ADDITIONAL SECTION:
+s1.node.dc1.consul.     0       IN      A       10.201.102.198
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#8600(127.0.0.1)
+;; WHEN: Tue Mar 28 16:11:45 2017
+;; MSG SIZE  rcvd: 90<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="HTTP-API"><a href="#HTTP-API" class="headerlink" title="HTTP API"></a>HTTP API</h4><p>除了DNS API之外,HTTP API也可以用来进行服务查询:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# curl -s 127.0.0.1:8500/v1/catalog/service/web | python -m json.tool
+[
+    {
+        "Address": "10.201.102.198",
+        "CreateIndex": 492843,
+        "ID": "422ec677-74ef-8f29-2f22-01effeed6334",
+        "ModifyIndex": 492843,
+        "Node": "s1",
+        "NodeMeta": {},
+        "ServiceAddress": "",
+        "ServiceEnableTagOverride": false,
+        "ServiceID": "web",
+        "ServiceName": "web",
+        "ServicePort": 80,
+        "ServiceTags": [
+            "rails"
+        ],
+        "TaggedAddresses": {
+            "lan": "10.201.102.198",
+            "wan": "10.201.102.198"
+        }
+    }
+]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>目录API给出所有节点提供的服务.稍后我们会像通常的那样带上健康检查进行查询.就像DNS内部处理的那样.这是只查看健康的实例的查询方法:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# curl -s 127.0.0.1:8500/v1/catalog/service/web?passing | python -m json.tool
+[
+    {
+        "Address": "10.201.102.198",
+        "CreateIndex": 492843,
+        "ID": "422ec677-74ef-8f29-2f22-01effeed6334",
+        "ModifyIndex": 492843,
+        "Node": "s1",
+        "NodeMeta": {},
+        "ServiceAddress": "",
+        "ServiceEnableTagOverride": false,
+        "ServiceID": "web",
+        "ServiceName": "web",
+        "ServicePort": 80,
+        "ServiceTags": [
+            "rails"
+        ],
+        "TaggedAddresses": {
+            "lan": "10.201.102.198",
+            "wan": "10.201.102.198"
+        }
+    }
+]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="WEB管理界面"><a href="#WEB管理界面" class="headerlink" title="WEB管理界面"></a>WEB管理界面</h3><p>Consul同时提供了一个漂亮的功能齐全的WEB界面,开箱即用.界面可以用来查看所有的节点,可以查看健康检查和他们的当前状态.可以读取和设置K/V 存储的数据.UI自动支持多数据中心.<a target="_blank" rel="noopener" href="https://www.consul.io/downloads.html">点击前往下载</a><br><img src="../images/UI_Download.png" alt="UI_Download"></p>
+<p>下载完后上传至服务器, 建议所有server角色都使用WebUI.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -node=s1 -bind=10.201.102.198 -ui-dir ./consul_ui/ -rejoin -config-dir=/etc/consul.d/ -client 0.0.0.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li><code>-ui-dir</code>: 提供存放web ui资源的路径, 指向该目录必须是可读的</li>
+<li><code>-client</code>: consul服务侦听地址, 这个地址提供HTTP、DNS、RPC等服务, 默认是127.0.0.1所以不对外提供服务, 如果你要对外提供服务改成0.0.0.0<br>可通过<a target="_blank" rel="noopener" href="http://10.201.102.198:8500/">http://10.201.102.198:8500</a> 访问WEB管理界面.<br><img src="../images/UI_Web.png" alt="UI_Web"></li>
+</ul>
+<h3 id="健康检查"><a href="#健康检查" class="headerlink" title="健康检查"></a>健康检查</h3><p>我们现在看到Consul运行时如此简单.添加节点和服务,查询节点和服务.在这一节.我们将继续添加健康检查到节点和服务.健康检查是服务发现的关键组件.预防使用到不健康的服务.</p>
+<p>这一步建立在前一节的Consul集群创建之上.目前你应该有一个包含多个节点的Consul集群.</p>
+<h4 id="自定义检查"><a href="#自定义检查" class="headerlink" title="自定义检查"></a>自定义检查</h4><p>和服务注册类似,一个检查可以通过检查定义或HTTP API请求来注册.</p>
+<p>我们将使用和检查定义来注册检查.和服务类似,因为这是建立检查最常用的方式.</p>
+<p>在第二个节点的配置目录建立定义文件:</p>
+<p><code>/etc/consul.d/web.json</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{"service": {
+    "name": "Faceid",
+    "tags": ["extract", "verify", "compare", "idcard"],
+    "address": "10.201.102.198",
+    "port": 9000,
+    "check": {
+        "name": "ping",
+        "script": "curl -s localhost:9000",
+        "interval": "3s"
+        }
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>or</p>
+<p><code>/etc/consul.d/web.json</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{"service": {
+    "name": "Faceid",
+    "tags": ["extract", "verify", "compare", "idcard"],
+    "address": "10.201.102.199",
+    "port": 9000,
+    "check": {
+        "id": "api",
+           "name": "HTTP API on port 9000",
+        "http": "http://localhost:9000",
+        "interval": "10s",
+        "timeout": "1s"
+        }
+   }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://www.consul.io/docs/agent/checks.html">more</a></p>
+<h3 id="检查健康状态"><a href="#检查健康状态" class="headerlink" title="检查健康状态"></a>检查健康状态</h3><p>我们能适应HTTP API来检查他们.首先我们检查有哪些失败的检查.使用这个命令(注意:这个命令可以运行在任何节点)</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# curl -s http://localhost:8500/v1/health/state/critical | python -m json.tool
+[
+    {
+        "CheckID": "service:Faceid",
+        "CreateIndex": 493398,
+        "ModifyIndex": 493846,
+        "Name": "Service 'Faceid' check",
+        "Node": "s1",
+        "Notes": "",
+        "Output": "",
+        "ServiceID": "Faceid",
+        "ServiceName": "Faceid",
+        "Status": "critical"
+    }
+]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们可以看到,只有一个检查我们的<code>web</code>服务在<code>critical</code>状态</p>
+<p>另外,我们可以尝试用DNS查询web服务,Consul将不会返回结果.因为服务不健康.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# dig @127.0.0.1 -p 8600 Faceid.service.consul SRV
+
+; &lt;&lt;&gt;&gt; DiG 9.8.2rc1-RedHat-9.8.2-0.17.rc1.el6 &lt;&lt;&gt;&gt; @127.0.0.1 -p 8600 Faceid.service.consul SRV
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 40884
+;; flags: qr aa rd; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 3
+;; WARNING: recursion requested but not available
+
+;; QUESTION SECTION:
+;Faceid.service.consul.         IN      SRV
+
+;; ANSWER SECTION:
+Faceid.service.consul.  0       IN      SRV     1 1 9000 s3.node.dc1.consul.
+Faceid.service.consul.  0       IN      SRV     1 1 9000 s1.node.dc1.consul.
+Faceid.service.consul.  0       IN      SRV     1 1 9000 s2.node.dc1.consul.
+
+;; ADDITIONAL SECTION:
+s3.node.dc1.consul.     0       IN      A       10.201.102.200
+s1.node.dc1.consul.     0       IN      A       10.201.102.198
+s2.node.dc1.consul.     0       IN      A       10.201.102.199
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#8600(127.0.0.1)
+;; WHEN: Tue Mar 28 18:20:15 2017
+;; MSG SIZE  rcvd: 165<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="K-V"><a href="#K-V" class="headerlink" title="K/V"></a>K/V</h3><p>除了提供服务发现和健康检查的集成.Consul提供了一个易用的键/值存储.这可以用来保持动态配置,协助服务协调,领袖选举,做开发者可以想到的任何事情.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# curl -v http://localhost:8500/v1/kv/?recurse
+* About to connect() to localhost port 8500 (#0)
+*   Trying ::1... 拒绝连接
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 8500 (#0)
+&gt; GET /v1/kv/?recurse HTTP/1.1
+&gt; User-Agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2
+&gt; Host: localhost:8500
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 404 Not Found
+&lt; X-Consul-Index: 1
+&lt; X-Consul-Knownleader: true
+&lt; X-Consul-Lastcontact: 0
+&lt; Date: Thu, 18 Aug 2016 08:21:39 GMT
+&lt; Content-Length: 0
+&lt; Content-Type: text/plain; charset=utf-8
+&lt;
+* Connection #0 to host localhost left intact
+* Closing connection #0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>因为没有key所以我们得到了一个404响应.现在我们PUT`一些示例的Key:</p>
+<pre class="line-numbers language-none"><code class="language-none">[root@dhcp-10-201-102-198 ~]# curl -X PUT -d 'test' http://localhost:8500/v1/kv/web/key1
+[root@dhcp-10-201-102-198 ~]# curl -X PUT -d 'test' http://localhost:8500/v1/kv/web/key2?flags=42
+[root@dhcp-10-201-102-198 ~]# curl -X PUT -d 'test'  http://localhost:8500/v1/kv/web/sub/key3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>我们创建了值为”test”的3个Key,注意返回的值是经过了base64编码的.用来支持非UTF8编码字符.对Key <code>web/key2</code>我们设置了一个标志值为 <code>42</code>.所有的key支持设置一个64位的整形数字标志.Consul内部不适用这个值.但是他可以被客户端适用来做一些元数据.</p>
+<p>完成设置后,我们发起了一个<code>GET</code>请求来接收多个key的值,使用<code>?recurse</code>参数.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# curl -s http://localhost:8500/v1/kv/web/?recurse | python -m json.tool
+[
+    {
+        "CreateIndex": 502660,
+        "Flags": 0,
+        "Key": "web/key1",
+        "LockIndex": 0,
+        "ModifyIndex": 502660,
+        "Value": "dGVzdA=="
+    },
+    {
+        "CreateIndex": 502663,
+        "Flags": 42,
+        "Key": "web/key2",
+        "LockIndex": 0,
+        "ModifyIndex": 502663,
+        "Value": "dGVzdA=="
+    },
+    {
+        "CreateIndex": 502665,
+        "Flags": 0,
+        "Key": "web/sub/key3",
+        "LockIndex": 0,
+        "ModifyIndex": 502665,
+        "Value": "dGVzdA=="
+    }
+]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>你可以获取单个的key</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# curl -s http://localhost:8500/v1/kv/web/key1 | python -m json.tool
+[
+    {
+        "CreateIndex": 502660,
+        "Flags": 0,
+        "Key": "web/key1",
+        "LockIndex": 0,
+        "ModifyIndex": 502660,
+        "Value": "dGVzdA=="
+    }
+]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>删除key也很简单.通过<code>DELETE</code>动作来完成.我们可以通过指定完整路径来删除一个单独的key.或者我们可以使用<code>?recurse</code>递归的删除主路径下所有key.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# curl -X DELETE http://localhost:8500/v1/kv/web/sub?recurse
+true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>可以通过发送相同的URL并提供不同的消息体的<code>PUT</code>请求去修改一个Key.另外,Consul提供一个检查并设置的操作,实现原子的Key修改.通过<code>?cas=</code>参数加上<code>GET</code>中最近的<code>ModifyIndex</code>来达到. 例如我们想修改 “web/key1”:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl -X PUT -d 'newval' http://localhost:8500/v1/kv/web/key1?cas=502660
+true
+curl -X PUT -d 'newval' http://localhost:8500/v1/kv/web/key1?cas=502660
+false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这种情况下,第一次<code>CAS</code> 更新成功因为<code>ModifyIndex</code>是<code>502660</code>.而第二次失败是因为<code>ModifyIndex</code>在第一次更新后已经不是<code>502660</code>了 .</p>
+<p>我们也可以使用<code>ModifyIndex</code>来等待key值的改变.例如我们想等待<code>key2</code>被修改:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# curl "http://localhost:8500/v1/kv/web/key2"
+[{"LockIndex":0,"Key":"web/key2","Flags":42,"Value":"dGVzdA==","CreateIndex":502663,"ModifyIndex":502663}]
+[root@dhcp-10-201-102-198 ~]# curl "http://localhost:8500/v1/kv/web/key2?index=502663&amp;wait=5s"
+[{"LockIndex":0,"Key":"web/key2","Flags":42,"Value":"dGVzdA==","CreateIndex":502663,"ModifyIndex":502663}]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过提供 <code>?index=</code>,我们请求等待key值有一个比<code>502663</code>更大的<code>ModifyIndex</code>.虽然<code>?wait=5s</code>参数限制了这个请求最多5秒,否则返回当前的未改变的值. 这样可以有效的等待key的改变.另外,这个功能可以用于等待一组key.直到其中的某个key有修改.</p>
+<h2 id="Conusl-命令行"><a href="#Conusl-命令行" class="headerlink" title="Conusl 命令行"></a>Conusl 命令行</h2><p>见识了consul的强大, consul可以通过一个简单的CLI来控制, consul只有一个命令行应用, 就是consul命令, consul命令可以包含agent、members等参数进行使用, 这一篇来具体看看consul CLI的具体用法, consul -h即可看到consul cli所支持的参数, 而每个参数里面又支持其他参数, 下面我们就来具体看看. </p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@dhcp-10-201-102-198 ~]# consul
+usage: consul [--version] [--help] &lt;command&gt; [&lt;args&gt;]
+
+Available commands are:
+    agent          Runs a Consul agent  运行一个consul agent
+    configtest     Validate config file
+    event          Fire a new event
+    exec           Executes a command on Consul nodes  在consul节点上执行一个命令
+    force-leave    Forces a member of the cluster to enter the "left" state   强制节点成员在集群中的状态转换到left状态
+    info           Provides debugging information for operators  提供操作的debug级别的信息
+    join           Tell Consul agent to join cluster   加入consul节点到集群中
+    keygen         Generates a new encryption key  生成一个新的加密key
+    keyring        Manages gossip layer encryption keys
+    kv             Interact with the key-value store
+    leave          Gracefully leaves the Consul cluster and shuts down
+    lock           Execute a command holding a lock
+    maint          Controls node or service maintenance mode
+    members        Lists the members of a Consul cluster    列出集群中成员
+    monitor        Stream logs from a Consul agent  打印consul节点的日志信息
+    operator       Provides cluster-level tools for Consul operators
+    reload         Triggers the agent to reload configuration files   触发节点重新加载配置文件
+    rtt            Estimates network round trip time between nodes
+    snapshot       Saves, restores and inspects snapshots of Consul server state
+    version        Prints the Consul version    打印consul的版本信息
+    watch          Watch for changes in Consul   监控consul的改变<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>更详细见<a target="_blank" rel="noopener" href="https://www.consul.io/docs/commands/index.html">官网</a></p>
+<h3 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h3><p><code>agent</code>指令是consul的核心, 它运行agent来维护成员的重要信息、运行检查、服务宣布、查询处理等等. </p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
+==&gt; Usage: consul agent [options]
+
+Starts the Consul agent and runs until an interrupt is received. The
+agent represents a single node in a cluster.
+
+Options:
+
+-advertise=addr                  Sets the advertise address to use
+-advertise-wan=addr              Sets address to advertise on wan instead of
+                                   advertise addr
+-bootstrap                       Sets server to bootstrap mode
+-bind=0.0.0.0                    Sets the bind address for cluster
+                                   communication
+-http-port=8500                  Sets the HTTP API port to listen on
+-bootstrap-expect=0              Sets server to expect bootstrap mode.
+-client=127.0.0.1                Sets the address to bind for client access.
+                                   This includes RPC, DNS, HTTP and HTTPS (if
+                                   configured)
+-config-file=foo                 Path to a JSON file to read configuration
+                                   from. This can be specified multiple times.
+-config-dir=foo                  Path to a directory to read configuration
+                                   files from. This will read every file ending
+                                   in ".json" as configuration in this
+                                   directory in alphabetical order. This can be
+                                   specified multiple times.
+-data-dir=path                   Path to a data directory to store agent
+                                   state
+-dev                             Starts the agent in development mode.
+-recursor=1.2.3.4                Address of an upstream DNS server.
+                                   Can be specified multiple times.
+-dc=east-aws                     Datacenter of the agent (deprecated: use
+                                   'datacenter' instead).
+-datacenter=east-aws             Datacenter of the agent.
+-encrypt=key                     Provides the gossip encryption key
+-join=1.2.3.4                    Address of an agent to join at start time.
+                                   Can be specified multiple times.
+-join-wan=1.2.3.4                Address of an agent to join -wan at start
+                                   time. Can be specified multiple times.
+-retry-join=1.2.3.4              Address of an agent to join at start time
+                                   with retries enabled. Can be specified
+                                   multiple times.
+-retry-interval=30s              Time to wait between join attempts.
+-retry-max=0                     Maximum number of join attempts. Defaults to
+                                   0, which will retry indefinitely.
+-retry-join-ec2-region           EC2 Region to use for discovering servers to
+                                   join.
+-retry-join-ec2-tag-key          EC2 tag key to filter on for server
+                                   discovery
+-retry-join-ec2-tag-value        EC2 tag value to filter on for server
+                                   discovery
+-retry-join-gce-project-name     Google Compute Engine project to discover
+                                   servers in
+-retry-join-gce-zone-pattern     Google Compute Engine region or zone to
+                                   discover servers in (regex pattern)
+-retry-join-gce-tag-value        Google Compute Engine tag value to filter
+                                   for server discovery
+-retry-join-gce-credentials-file Path to credentials JSON file to use with
+                                   Google Compute Engine
+-retry-join-wan=1.2.3.4          Address of an agent to join -wan at start
+                                   time with retries enabled. Can be specified
+                                   multiple times.
+-retry-interval-wan=30s          Time to wait between join -wan attempts.
+-retry-max-wan=0                 Maximum number of join -wan attempts.
+                                   Defaults to 0, which will retry
+                                   indefinitely.
+-log-level=info                  Log level of the agent.
+-node=hostname                   Name of this node. Must be unique in the
+                                   cluster
+-node-meta=key:value             An arbitrary metadata key/value pair for
+                                   this node.
+                                   This can be specified multiple times.
+-protocol=N                      Sets the protocol version. Defaults to
+                                   latest.
+-rejoin                          Ignores a previous leave and attempts to
+                                   rejoin the cluster.
+-server                          Switches agent to server mode.
+-syslog                          Enables logging to syslog
+-ui                              Enables the built-in static web UI server
+-ui-dir=path                     Path to directory containing the Web UI
+                                   resources
+-pid-file=path                   Path to file to store agent PID<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="event"><a href="#event" class="headerlink" title="event"></a>event</h3><p><code>event</code>命令提供了一种机制, 用来fire自定义的用户事件, 这些事件对consul来说是不透明的, 但它们可以用来构建自动部署、重启服务或者其他行动的脚本. </p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-http-addr: http服务的地址, agent可以链接上来发送命令, 如果没有设置, 则默认是127.0.0.1:8500. 
+-datacenter: 数据中心. 
+-name: 事件的名称
+-node: 一个正则表达式, 用来过滤节点
+-service: 一个正则表达式, 用来过滤节点上匹配的服务
+-tag: 一个正则表达式, 用来过滤节点上符合tag的服务, 必须和-service一起使用. <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h3><p><code>exec</code>指令提供了一种远程执行机制, 比如你要在所有的机器上执行uptime命令, 远程执行的工作通过job来指定, 存储在KV中, agent使用event系统可以快速的知道有新的job产生, 消息是通过gossip协议来传递的, 因此消息传递是最佳的, 但是并不保证命令的执行. 事件通过gossip来驱动, 远程执行依赖KV存储系统(就像消息代理一样). </p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-http-addr: http服务的地址, agent可以链接上来发送命令, 如果没有设置, 则默认是127.0.0.1:8500. 
+-datacenter: 数据中心. 
+-prefix: key在KV系统中的前缀, 用来存储请求数据, 默认是_rexec
+-node: 一个正则表达式, 用来过滤节点, 评估事件
+-service: 一个正则表达式, 用来过滤节点上匹配的服务
+-tag: 一个正则表达式, 用来过滤节点上符合tag的服务, 必须和-service一起使用. 
+-wait: 在节点多长时间没有响应后, 认为job已经完成. 
+-wait-repl: 
+-verbose: 输出更多信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="force-leave"><a href="#force-leave" class="headerlink" title="force-leave"></a>force-leave</h3><p><code>force-leave</code>治疗可以强制consul集群中的成员进入left状态(空闲状态), 记住, 即使一个成员处于活跃状态, 它仍旧可以再次加入集群中, 这个方法的真实目的是强制移除failed的节点. 如果failed的节点还是网络的一部分, 则consul会周期性的重新链接failed的节点, 如果经过一段时间后(默认是72小时), consul则会宣布停止尝试链接failed的节点. force-leave指令可以快速的把failed节点转换到left状态. </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">-rpc-addr</span><span class="token punctuation">:</span> 一个rpc地址<span class="token punctuation">,</span> agent可以链接上来发送命令<span class="token punctuation">,</span> 如果没有指定<span class="token punctuation">,</span> 默认是127.0.0.1<span class="token punctuation">:</span><span class="token number">8400.</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="info"><a href="#info" class="headerlink" title="info"></a>info</h3><p><code>info</code>指令提供了各种操作时可以用到的debug信息, 对于client和server, info有返回不同的子系统信息, 目前有以下几个KV信息: agent(提供agent信息), consul(提供consul库的信息), raft(提供raft库的信息), serf_lan(提供LAN gossip pool),serf_wan(提供WAN gossip pool)</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">-rpc-addr</span><span class="token punctuation">:</span> 一个rpc地址<span class="token punctuation">,</span> agent可以链接上来发送命令<span class="token punctuation">,</span> 如果没有指定<span class="token punctuation">,</span> 默认是127.0.0.1<span class="token punctuation">:</span><span class="token number">8400</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><p><code>join</code>指令告诉consul agent加入一个已经存在的集群中, 一个新的consul agent必须加入一个已经有至少一个成员的集群中, 这样它才能加入已经存在的集群中, 如果你不加入一个已经存在的集群, 则agent是它自身集群的一部分, 其他agent则可以加入进来. agents可以加入其他agent多次. consul join [options] address. 如果你想加入多个集群, 则可以写多个地址, consul会加入所有的地址. </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">-wan</span><span class="token punctuation">:</span> agent运行在server模式<span class="token punctuation">,</span> xxxxxxx
+<span class="token key atrule">-rpc-addr</span><span class="token punctuation">:</span> 一个rpc地址<span class="token punctuation">,</span> agent可以链接上来发送命令<span class="token punctuation">,</span> 如果没有指定<span class="token punctuation">,</span> 默认是127.0.0.1<span class="token punctuation">:</span><span class="token number">8400.</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="keygen"><a href="#keygen" class="headerlink" title="keygen"></a>keygen</h3><p><code>keygen</code>指令生成加密的密钥, 可以用在consul agent通讯加密</p>
+<ul>
+<li>生成一个key</li>
+</ul>
+<h3 id="leave"><a href="#leave" class="headerlink" title="leave"></a>leave</h3><p><code>leave</code>指令触发一个优雅的离开动作并关闭agent, 节点离开后不会尝试重新加入集群中. 运行在server状态的节点, 节点会被优雅的删除, 这是很严重的, 在某些情况下一个不优雅的离开会影响到集群的可用性. </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">-rpc-addr</span><span class="token punctuation">:</span> 一个rpc地址<span class="token punctuation">,</span> agent可以链接上来发送命令<span class="token punctuation">,</span> 如果没有指定<span class="token punctuation">,</span> 默认是127.0.0.1<span class="token punctuation">:</span><span class="token number">8400.</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="members"><a href="#members" class="headerlink" title="members"></a>members</h3><p><code>members</code>指令输出consul agent目前所知道的所有的成员以及它们的状态, 节点的状态只有alive、left、failed三种状态. </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">-detailed</span><span class="token punctuation">:</span> 输出每个节点更详细的信息. 
+<span class="token key atrule">-rpc-addr</span><span class="token punctuation">:</span> 一个rpc地址<span class="token punctuation">,</span> agent可以链接上来发送命令<span class="token punctuation">,</span> 如果没有指定<span class="token punctuation">,</span> 默认是127.0.0.1<span class="token punctuation">:</span><span class="token number">8400.</span> 
+<span class="token key atrule">-status</span><span class="token punctuation">:</span> 过滤出符合正则规则的节点
+<span class="token key atrule">-wan</span><span class="token punctuation">:</span> xxxxxx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="monitor"><a href="#monitor" class="headerlink" title="monitor"></a>monitor</h3><p><code>monitor</code>指令用来链接运行的agent, 并显示日志. monitor会显示最近的日志, 并持续的显示日志流, 不会自动退出, 除非你手动或者远程agent自己退出. </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">-log-level</span><span class="token punctuation">:</span> 显示哪个级别的日志<span class="token punctuation">,</span> 默认是info
+<span class="token key atrule">-rpc-addr</span><span class="token punctuation">:</span> 一个rpc地址<span class="token punctuation">,</span> agent可以链接上来发送命令<span class="token punctuation">,</span> 如果没有指定<span class="token punctuation">,</span> 默认是127.0.0.1<span class="token punctuation">:</span><span class="token number">8400</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="reload"><a href="#reload" class="headerlink" title="reload"></a>reload</h3><p><code>reload</code>指令可以重新加载agent的配置文件. SIGHUP指令在重新加载配置文件时使用, 任何重新加载的错误都会写在agent的log文件中, 并不会打印到屏幕. </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">-rpc-addr</span><span class="token punctuation">:</span> 一个rpc地址<span class="token punctuation">,</span> agent可以链接上来发送命令<span class="token punctuation">,</span> 如果没有指定<span class="token punctuation">,</span> 默认是127.0.0.1<span class="token punctuation">:</span><span class="token number">8400</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="version"><a href="#version" class="headerlink" title="version"></a>version</h3><p>打印consul的版本</p>
+<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><p><code>watch</code>指令提供了一个机制, 用来监视实际数据视图的改变(节点列表、成员服务、KV), 如果没有指定进程, 当前值会被dump出来</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">-http-addr</span><span class="token punctuation">:</span> http服务的地址<span class="token punctuation">,</span> agent可以链接上来发送命令<span class="token punctuation">,</span> 如果没有设置<span class="token punctuation">,</span> 则默认是127.0.0.1<span class="token punctuation">:</span><span class="token number">8500.</span> 
+<span class="token key atrule">-datacenter</span><span class="token punctuation">:</span> 数据中心查询. 
+<span class="token key atrule">-token</span><span class="token punctuation">:</span> ACL token
+<span class="token key atrule">-key</span><span class="token punctuation">:</span> 监视key<span class="token punctuation">,</span> 只针对key类型
+<span class="token key atrule">-name</span><span class="token punctuation">:</span> 监视event<span class="token punctuation">,</span> 只针对event类型
+<span class="token key atrule">-prefix</span><span class="token punctuation">:</span> 监视key prefix<span class="token punctuation">,</span> 只针对keyprefix类型
+<span class="token key atrule">-service</span><span class="token punctuation">:</span> 监控service<span class="token punctuation">,</span> 只针对service类型
+<span class="token key atrule">-state</span><span class="token punctuation">:</span> 过略check state
+<span class="token key atrule">-tag</span><span class="token punctuation">:</span> 过滤service tag
+<span class="token key atrule">-type</span><span class="token punctuation">:</span> 监控类型<span class="token punctuation">,</span> 一般有key、keyprefix、service、nodes、checks、event<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Consul-配置"><a href="#Consul-配置" class="headerlink" title="Consul 配置"></a>Consul 配置</h2><p>agent有各种各样的配置项可以在命令行或者配置文件进行定义, 所有的配置项都是可选择的, 当加载配置文件的时候, consul从配置文件或者配置目录加载配置. 后面定义的配置会合并前面定义的配置, 但是大多数情况下, 合并的意思是后面定义的配置会覆盖前面定义的配置, 但是有些情况, 例如event句柄, 合并仅仅是添加到前面定义的句柄后面. consul重新加载配置文件也支持以信号的方式接收update信号. </p>
+<p>下面看看命令行参数: </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">-advertise</span><span class="token punctuation">:</span> 通知展现地址用来改变我们给集群中的其他节点展现的地址<span class="token punctuation">,</span> 一般情况下<span class="token punctuation">-</span>bind地址就是展现地址
+<span class="token key atrule">-bootstrap</span><span class="token punctuation">:</span> 用来控制一个server是否在bootstrap模式<span class="token punctuation">,</span> 在一个datacenter中只能有一个server处于bootstrap模式<span class="token punctuation">,</span> 当一个server处于bootstrap模式时<span class="token punctuation">,</span> 可以自己选举为raft leader. 
+<span class="token key atrule">-bootstrap-expect</span><span class="token punctuation">:</span> 在一个datacenter中期望提供的server节点数目<span class="token punctuation">,</span> 当该值提供的时候<span class="token punctuation">,</span> consul一直等到达到指定sever数目的时候才会引导整个集群<span class="token punctuation">,</span> 该标记不能和bootstrap公用
+<span class="token key atrule">-bind</span><span class="token punctuation">:</span> 该地址用来在集群内部的通讯<span class="token punctuation">,</span> 集群内的所有节点到地址都必须是可达的<span class="token punctuation">,</span> 默认是0.0.0.0
+<span class="token key atrule">-client</span><span class="token punctuation">:</span> consul绑定在哪个client地址上<span class="token punctuation">,</span> 这个地址提供HTTP、DNS、RPC等服务<span class="token punctuation">,</span> 默认是127.0.0.1
+<span class="token key atrule">-config-file</span><span class="token punctuation">:</span> 明确的指定要加载哪个配置文件
+<span class="token key atrule">-config-dir</span><span class="token punctuation">:</span> 配置文件目录<span class="token punctuation">,</span> 里面所有以.json结尾的文件都会被加载
+<span class="token key atrule">-data-dir</span><span class="token punctuation">:</span> 提供一个目录用来存放agent的状态<span class="token punctuation">,</span> 所有的agent允许都需要该目录<span class="token punctuation">,</span> 该目录必须是稳定的<span class="token punctuation">,</span> 系统重启后都继续存在
+<span class="token key atrule">-dc</span><span class="token punctuation">:</span> 该标记控制agent允许的datacenter的名称<span class="token punctuation">,</span> 默认是dc1
+<span class="token key atrule">-encrypt</span><span class="token punctuation">:</span> 指定secret key<span class="token punctuation">,</span> 使consul在通讯时进行加密<span class="token punctuation">,</span> key可以通过consul keygen生成<span class="token punctuation">,</span> 同一个集群中的节点必须使用相同的key
+<span class="token key atrule">-join</span><span class="token punctuation">:</span> 加入一个已经启动的agent的ip地址<span class="token punctuation">,</span> 可以多次指定多个agent的地址. 如果consul不能加入任何指定的地址中<span class="token punctuation">,</span> 则agent会启动失败<span class="token punctuation">,</span> 默认agent启动时不会加入任何节点. 
+<span class="token key atrule">-retry-join</span><span class="token punctuation">:</span> 和join类似<span class="token punctuation">,</span> 但是允许你在第一次失败后进行尝试. 
+<span class="token key atrule">-retry-interval</span><span class="token punctuation">:</span> 两次join之间的时间间隔<span class="token punctuation">,</span> 默认是30s
+<span class="token key atrule">-retry-max</span><span class="token punctuation">:</span> 尝试重复join的次数<span class="token punctuation">,</span> 默认是0<span class="token punctuation">,</span> 也就是无限次尝试
+<span class="token key atrule">-log-level</span><span class="token punctuation">:</span> consul agent启动后显示的日志信息级别. 默认是info<span class="token punctuation">,</span> <span class="token key atrule">可选</span><span class="token punctuation">:</span> trace、debug、info、warn、err. 
+<span class="token key atrule">-node</span><span class="token punctuation">:</span> 节点在集群中的名称<span class="token punctuation">,</span> 在一个集群中必须是唯一的<span class="token punctuation">,</span> 默认是该节点的主机名
+<span class="token key atrule">-protocol</span><span class="token punctuation">:</span> consul使用的协议版本
+<span class="token key atrule">-rejoin</span><span class="token punctuation">:</span> 使consul忽略先前的离开<span class="token punctuation">,</span> 在再次启动后仍旧尝试加入集群中. 
+<span class="token key atrule">-server</span><span class="token punctuation">:</span> 定义agent运行在server模式<span class="token punctuation">,</span> 每个集群至少有一个server<span class="token punctuation">,</span> 建议每个集群的server不要超过5个
+<span class="token key atrule">-syslog</span><span class="token punctuation">:</span> 开启系统日志功能<span class="token punctuation">,</span> 只在linux/osx上生效
+<span class="token punctuation">-</span>ui<span class="token punctuation">-</span>dir<span class="token punctuation">:</span>提供存放web ui资源的路径<span class="token punctuation">,</span> 该目录必须是可读的
+<span class="token punctuation">-</span>pid<span class="token punctuation">-</span>file<span class="token punctuation">:</span>提供一个路径来存放pid文件<span class="token punctuation">,</span> 可以使用该文件进行SIGINT/SIGHUP(关闭/更新)agent<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>除了命令行参数外, 配置也可以写入文件中, 在某些情况下配置文件会更简单一些, 例如: 利用consul被用来管理系统. 配置文件是json格式的, 很容易编写. 配置文件不仅被用来设置agent的启动, 也可以用来提供健康检测和服务发现的定义. 配置文件的一般样例如下: </p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"datacenter"</span><span class="token operator">:</span> <span class="token string">"dc1"</span><span class="token punctuation">,</span>
+  <span class="token property">"data_dir"</span><span class="token operator">:</span> <span class="token string">"/opt/consul"</span><span class="token punctuation">,</span>
+  <span class="token property">"log_level"</span><span class="token operator">:</span> <span class="token string">"INFO"</span><span class="token punctuation">,</span>
+  <span class="token property">"node_name"</span><span class="token operator">:</span> <span class="token string">"s1"</span><span class="token punctuation">,</span>
+  <span class="token property">"server"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"bootstrap_expect"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token property">"bind_addr"</span><span class="token operator">:</span> <span class="token string">"10.201.102.198"</span><span class="token punctuation">,</span>
+  <span class="token property">"client_addr"</span><span class="token operator">:</span> <span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span>
+  <span class="token property">"ui_dir"</span><span class="token operator">:</span> <span class="token string">"/root/consul_ui"</span><span class="token punctuation">,</span>
+  <span class="token property">"retry_join"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"10.201.102.198"</span><span class="token punctuation">,</span><span class="token string">"10.201.102.199"</span><span class="token punctuation">,</span><span class="token string">"10.201.102.200"</span><span class="token punctuation">,</span><span class="token string">"10.201.102.248"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"retry_interval"</span><span class="token operator">:</span> <span class="token string">"30s"</span><span class="token punctuation">,</span>
+  <span class="token property">"enable_debug"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  <span class="token property">"rejoin_after_leave"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"start_join"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"10.201.102.198"</span><span class="token punctuation">,</span><span class="token string">"10.201.102.199"</span><span class="token punctuation">,</span><span class="token string">"10.201.102.200"</span><span class="token punctuation">,</span><span class="token string">"10.201.102.248"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"enable_syslog"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"syslog_facility"</span><span class="token operator">:</span> <span class="token string">"local5"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>下面看看详细的配置文件参数: </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">acl_datacenter</span><span class="token punctuation">:</span> 只用于server<span class="token punctuation">,</span> 指定的datacenter的权威ACL信息<span class="token punctuation">,</span> 所有的servers和datacenter必须同意ACL datacenter
+<span class="token key atrule">acl_default_policy</span><span class="token punctuation">:</span> 默认是allow
+<span class="token key atrule">acl_down_policy</span><span class="token punctuation">:</span> 
+<span class="token key atrule">acl_master_token</span><span class="token punctuation">:</span> 
+<span class="token key atrule">acl_token</span><span class="token punctuation">:</span> agent会使用这个token和consul server进行请求
+<span class="token key atrule">acl_ttl</span><span class="token punctuation">:</span> 控制TTL的cache<span class="token punctuation">,</span> 默认是30s
+<span class="token key atrule">addresses</span><span class="token punctuation">:</span> 一个嵌套对象<span class="token punctuation">,</span> <span class="token key atrule">可以设置以下key</span><span class="token punctuation">:</span> dns、http、rpc
+<span class="token key atrule">advertise_addr</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>advertise
+<span class="token key atrule">bootstrap</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>bootstrap
+<span class="token key atrule">bootstrap_expect</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>bootstrap<span class="token punctuation">-</span>expect
+<span class="token key atrule">bind_addr</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>bind
+<span class="token key atrule">ca_file</span><span class="token punctuation">:</span> 提供CA文件路径<span class="token punctuation">,</span> 用来检查客户端或者服务端的链接
+<span class="token key atrule">cert_file</span><span class="token punctuation">:</span> 必须和key_file一起
+<span class="token key atrule">check_update_interval</span><span class="token punctuation">:</span> 
+<span class="token key atrule">client_addr</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>client
+<span class="token key atrule">datacenter</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>dc
+<span class="token key atrule">data_dir</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>data<span class="token punctuation">-</span>dir
+<span class="token key atrule">disable_anonymous_signature</span><span class="token punctuation">:</span> 在进行更新检查时禁止匿名签名
+<span class="token key atrule">disable_remote_exec</span><span class="token punctuation">:</span> 禁止支持远程执行<span class="token punctuation">,</span> 设置为true<span class="token punctuation">,</span> agent会忽视所有进入的远程执行请求
+<span class="token key atrule">disable_update_check</span><span class="token punctuation">:</span> 禁止自动检查安全公告和新版本信息
+<span class="token key atrule">dns_config</span><span class="token punctuation">:</span> 是一个嵌套对象<span class="token punctuation">,</span> <span class="token key atrule">可以设置以下参数</span><span class="token punctuation">:</span> allow_stale、max_stale、node_ttl 、service_ttl、enable_truncate
+<span class="token key atrule">domain</span><span class="token punctuation">:</span> 默认情况下consul在进行DNS查询时<span class="token punctuation">,</span> 查询的是consul域<span class="token punctuation">,</span> 可以通过该参数进行修改
+<span class="token key atrule">enable_debug</span><span class="token punctuation">:</span> 开启debug模式
+<span class="token key atrule">enable_syslog</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>syslog
+<span class="token key atrule">encrypt</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>encrypt
+<span class="token key atrule">key_file</span><span class="token punctuation">:</span> 提供私钥的路径
+<span class="token key atrule">leave_on_terminate</span><span class="token punctuation">:</span> 默认是false<span class="token punctuation">,</span> 如果为true<span class="token punctuation">,</span> 当agent收到一个TERM信号的时候<span class="token punctuation">,</span> 它会发送leave信息到集群中的其他节点上. 
+<span class="token key atrule">log_level</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>log<span class="token punctuation">-</span>level
+<span class="token key atrule">node_name</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>node
+<span class="token key atrule">ports</span><span class="token punctuation">:</span> 这是一个嵌套对象<span class="token punctuation">,</span> <span class="token key atrule">可以设置以下key</span><span class="token punctuation">:</span> <span class="token key atrule">dns(dns地址</span><span class="token punctuation">:</span> <span class="token key atrule">8600)、http(http api地址</span><span class="token punctuation">:</span> 8500)、rpc(rpc<span class="token punctuation">:</span>8400)、serf_lan(lan port<span class="token punctuation">:</span>8301)、serf_wan(wan port<span class="token punctuation">:</span>8302)、server(server rpc<span class="token punctuation">:</span>8300)
+<span class="token key atrule">protocol</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>protocol
+<span class="token key atrule">recursor</span><span class="token punctuation">:</span> 
+<span class="token key atrule">rejoin_after_leave</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>rejoin
+<span class="token key atrule">retry_join</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>retry<span class="token punctuation">-</span>join
+<span class="token key atrule">retry_interval</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>retry<span class="token punctuation">-</span>interval
+<span class="token key atrule">server</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>server
+<span class="token key atrule">server_name</span><span class="token punctuation">:</span> 会覆盖TLS CA的node_name<span class="token punctuation">,</span> 可以用来确认CA name和hostname相匹配
+<span class="token key atrule">skip_leave_on_interrupt</span><span class="token punctuation">:</span> 和leave_on_terminate比较类似<span class="token punctuation">,</span> 不过只影响当前句柄
+<span class="token key atrule">start_join</span><span class="token punctuation">:</span> 一个字符数组提供的节点地址会在启动时被加入
+<span class="token key atrule">statsd_addr</span><span class="token punctuation">:</span> 
+<span class="token key atrule">statsite_addr</span><span class="token punctuation">:</span> 
+<span class="token key atrule">syslog_facility</span><span class="token punctuation">:</span> 当enable_syslog被提供后<span class="token punctuation">,</span> 该参数控制哪个级别的信息被发送<span class="token punctuation">,</span> 默认Local0
+<span class="token key atrule">ui_dir</span><span class="token punctuation">:</span> 等同于<span class="token punctuation">-</span>ui<span class="token punctuation">-</span>dir
+<span class="token key atrule">verify_incoming</span><span class="token punctuation">:</span> 默认false<span class="token punctuation">,</span> 如果为true<span class="token punctuation">,</span> 则所有进入链接都需要使用TLS<span class="token punctuation">,</span> 需要客户端使用ca_file提供ca文件<span class="token punctuation">,</span> 只用于consul server端<span class="token punctuation">,</span> 因为client从来没有进入的链接
+<span class="token key atrule">verify_outgoing</span><span class="token punctuation">:</span> 默认false<span class="token punctuation">,</span> 如果为true<span class="token punctuation">,</span> 则所有出去链接都需要使用TLS<span class="token punctuation">,</span> 需要服务端使用ca_file提供ca文件<span class="token punctuation">,</span> consul server和client都需要使用<span class="token punctuation">,</span> 因为两者都有出去的链接
+<span class="token key atrule">watches</span><span class="token punctuation">:</span> watch一个详细名单<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>##HTTP API<br>consul的主要接口是RESTful HTTP API, 该API可以用来增删查改nodes、services、checks、configguration. 所有的endpoints主要分为以下类别: </p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kv - Key/Value存储
+agent - Agent控制
+catalog - 管理nodes和services
+health - 管理健康监测
+session - Session操作
+acl - ACL创建和管理
+event - 用户Events
+status - Consul系统状态<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>下面我们就单独看看每个模块的具体内容. </p>
+<h3 id="agent"><a href="#agent" class="headerlink" title="agent"></a>agent</h3><p>agent endpoints用来和本地agent进行交互, 一般用来服务注册和检查注册, 支持以下接口</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">/v1/agent/checks</span> <span class="token punctuation">:</span> 返回本地agent注册的所有检查(包括配置文件和HTTP接口)
+<span class="token key atrule">/v1/agent/services</span> <span class="token punctuation">:</span> 返回本地agent注册的所有 服务
+<span class="token key atrule">/v1/agent/members</span> <span class="token punctuation">:</span> 返回agent在集群的gossip pool中看到的成员
+<span class="token key atrule">/v1/agent/self</span> <span class="token punctuation">:</span> 返回本地agent的配置和成员信息
+<span class="token key atrule">/v1/agent/join/&lt;address&gt;</span> <span class="token punctuation">:</span> 触发本地agent加入node
+<span class="token key atrule">/v1/agent/force-leave/&lt;node&gt;&gt;</span><span class="token punctuation">:</span> 强制删除node
+<span class="token key atrule">/v1/agent/check/register</span> <span class="token punctuation">:</span> 在本地agent增加一个检查项<span class="token punctuation">,</span> 使用PUT方法传输一个json格式的数据
+<span class="token key atrule">/v1/agent/check/deregister/&lt;checkID&gt;</span> <span class="token punctuation">:</span> 注销一个本地agent的检查项
+<span class="token key atrule">/v1/agent/check/pass/&lt;checkID&gt;</span> <span class="token punctuation">:</span> 设置一个本地检查项的状态为passing
+<span class="token key atrule">/v1/agent/check/warn/&lt;checkID&gt;</span> <span class="token punctuation">:</span> 设置一个本地检查项的状态为warning
+<span class="token key atrule">/v1/agent/check/fail/&lt;checkID&gt;</span> <span class="token punctuation">:</span> 设置一个本地检查项的状态为critical
+<span class="token key atrule">/v1/agent/service/register</span> <span class="token punctuation">:</span> 在本地agent增加一个新的服务项<span class="token punctuation">,</span> 使用PUT方法传输一个json格式的数据
+<span class="token key atrule">/v1/agent/service/deregister/&lt;serviceID&gt;</span> <span class="token punctuation">:</span> 注销一个本地agent的服务项<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="catalog"><a href="#catalog" class="headerlink" title="catalog"></a>catalog</h3><p>catalog endpoints用来注册/注销nodes、services、checks</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">/v1/catalog/register</span> <span class="token punctuation">:</span> Registers a new node<span class="token punctuation">,</span> service<span class="token punctuation">,</span> or check
+<span class="token key atrule">/v1/catalog/deregister</span> <span class="token punctuation">:</span> Deregisters a node<span class="token punctuation">,</span> service<span class="token punctuation">,</span> or check
+<span class="token key atrule">/v1/catalog/datacenters</span> <span class="token punctuation">:</span> Lists known datacenters
+<span class="token key atrule">/v1/catalog/nodes</span> <span class="token punctuation">:</span> Lists nodes in a given DC
+<span class="token key atrule">/v1/catalog/services</span> <span class="token punctuation">:</span> Lists services in a given DC
+<span class="token key atrule">/v1/catalog/service/&lt;service&gt;</span> <span class="token punctuation">:</span> Lists the nodes in a given service
+<span class="token key atrule">/v1/catalog/node/&lt;node&gt;</span> <span class="token punctuation">:</span> Lists the services provided by a node<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="health"><a href="#health" class="headerlink" title="health"></a>health</h3><p>health endpoints用来查询健康状况相关信息, 该功能从catalog中单独分离出来</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">/v1/healt/node/&lt;node&gt;</span><span class="token punctuation">:</span> 返回node所定义的检查<span class="token punctuation">,</span> 可用参数<span class="token punctuation">?</span>dc=
+<span class="token key atrule">/v1/health/checks/&lt;service&gt;</span><span class="token punctuation">:</span> 返回和服务相关联的检查<span class="token punctuation">,</span> 可用参数<span class="token punctuation">?</span>dc=
+<span class="token key atrule">/v1/health/service/&lt;service&gt;</span><span class="token punctuation">:</span> 返回给定datacenter中给定node中service
+<span class="token key atrule">/v1/health/state/&lt;state&gt;</span><span class="token punctuation">:</span> 返回给定datacenter中指定状态的服务<span class="token punctuation">,</span> state可以是"any"<span class="token punctuation">,</span> <span class="token string">"unknown"</span><span class="token punctuation">,</span> <span class="token string">"passing"</span><span class="token punctuation">,</span> <span class="token string">"warning"</span><span class="token punctuation">,</span> or "critical"<span class="token punctuation">,</span> 可用参数<span class="token punctuation">?</span>dc=<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><p>session endpoints用来create、update、destory、query sessions</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">/v1/session/create</span><span class="token punctuation">:</span> Creates a new session
+<span class="token key atrule">/v1/session/destroy/&lt;session&gt;</span><span class="token punctuation">:</span> Destroys a given session
+<span class="token key atrule">/v1/session/info/&lt;session&gt;</span><span class="token punctuation">:</span> Queries a given session
+<span class="token key atrule">/v1/session/node/&lt;node&gt;</span><span class="token punctuation">:</span> Lists sessions belonging to a node
+<span class="token key atrule">/v1/session/list</span><span class="token punctuation">:</span> Lists all the active sessions<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="acl"><a href="#acl" class="headerlink" title="acl"></a>acl</h3><p>acl endpoints用来create、update、destory、query acl</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">/v1/acl/create: Creates a new token with policy
+/v1/acl/update: Update the policy of a token
+/v1/acl/destroy/&lt;id&gt;: Destroys a given token
+/v1/acl/info/&lt;id&gt;: Queries the policy of a given token
+/v1/acl/clone/&lt;id&gt;: Creates a new token by cloning an existing token
+/v1/acl/list: Lists all the active tokens<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="event-1"><a href="#event-1" class="headerlink" title="event"></a>event</h3><p>event endpoints用来fire新的events、查询已有的events</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">/v1/event/fire/&lt;name&gt;</span><span class="token punctuation">:</span> 触发一个新的event<span class="token punctuation">,</span> 用户event需要name和其他可选的参数<span class="token punctuation">,</span> 使用PUT方法
+<span class="token key atrule">/v1/event/list</span><span class="token punctuation">:</span> 返回agent知道的events<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="status"><a href="#status" class="headerlink" title="status"></a>status</h3><p>status endpoints用来或者consul 集群的信息</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">/v1/status/leader</span> <span class="token punctuation">:</span> 返回当前集群的Raft leader
+<span class="token key atrule">/v1/status/peers</span> <span class="token punctuation">:</span> 返回当前集群中同事<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="Consul-Template"><a href="#Consul-Template" class="headerlink" title="Consul-Template"></a>Consul-Template</h2><p>在consul-template没出现之前, 大家构建服务发现系统, 大多采用的是zookeeper、etcd+confd这样类似的系统, 之前写过一篇consul+confd的文, 讲的是如何动态生成配置文件的, 如今consul官方推出了自己的模板系统, 就是consul-template, 这样的话动态的配置系统可以分化为etcd+confd和consul+consul-template两大阵营. consul是一个和etcd类似但又强于etcd的系统, 关于etcd和consul可以翻阅以前的文章, consul-template的定位就和confd差不多一样了, confd的后端可以是etcd或者consul, 相信consul搭配consul-template能发挥更大的效果. consul-template提供了一个便捷的方式从consul中获取存储的值, consul-template守护进程会查询consul实例, 来更新系统上指定的任何模板, 当更新完成后, 模板可以选择运行一些任意的命令. </p>
+<p>consul template的使用场景: consul template可以查询consul中的服务目录、key、key-values等. 这种强大的抽象功能和查询语言模板可以使consul template特别适合动态的创建配置文件. 例如: 创建apache/nginx proxy balancers、haproxy backends、varnish servers、application configurations. </p>
+<p>consul template的特性:</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">quiescence</span><span class="token punctuation">:</span> consul template内制静止平衡功能<span class="token punctuation">,</span> 可以智能的发现consul实例中的更改信息. 这个功能可以防止频繁的更新模板而引起系统的波动. 
+<span class="token key atrule">dry mode</span><span class="token punctuation">:</span> 不确定当前架构的状态？担心模板的变化会破坏子系统？无须担心<span class="token punctuation">,</span> 因为consul template还有<span class="token punctuation">-</span>dry模式. 在dry模式<span class="token punctuation">,</span> consul template会将结果呈现在STDOUT<span class="token punctuation">,</span> 所以操作员可以检查输出是否正常<span class="token punctuation">,</span> 以决定更换模板是否安全
+<span class="token key atrule">CLI and Config</span><span class="token punctuation">:</span> 如果你喜欢在命令行上指定一切<span class="token punctuation">,</span> consul template都可以hold住. 随着内置HCL的支持<span class="token punctuation">,</span> consul template接收一个配置文件<span class="token punctuation">,</span> 命令行参数<span class="token punctuation">,</span> 或者两者的混合. 通过这种方式你可以继续使用你现在已有的配置管理工具和consul template来配合. 
+<span class="token key atrule">verbose debugging</span><span class="token punctuation">:</span> 即使每件事你都做的近乎完美<span class="token punctuation">,</span> 但是有时候还是会有失败发生. consul template可以提供更详细的debug日志信息. <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>你可以在发布页下载发布包.如果你希望自己编译请查看说明文档.</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-auth=&lt;user[:pass]&gt;      设置基本的认证用户名和密码
+-consul-addr=&lt;address&gt;   设置Consul实例的地址
+-max-stale=&lt;duration&gt;    查询过期的最大频率, 默认是1s
+-dedup                   启用重复数据删除, 当许多consul template实例渲染一个模板的时候可以降低consul的负载
+-ssl                     使用https连接Consul使用SSL
+-ssl-verify              通过SSL连接的时候检查证书
+-ssl-cert                SSL客户端证书发送给服务器
+-ssl-key                 客户端认证时使用的SSL/TLS私钥
+-ssl-ca-cert             验证服务器的CA证书列表
+-token=&lt;token&gt;           设置Consul API的token
+-syslog                  把标准输出和标准错误重定向到syslog, syslog的默认级别是local0. 
+-syslog-facility=&lt;f&gt;     设置syslog级别, 默认是local0, 必须和-syslog配合使用
+-template=&lt;template&gt;     增加一个需要监控的模板, 格式是: 'templatePath:outputPath(:command)', 多个模板则可以设置多次
+-wait=&lt;duration&gt;         当呈现一个新的模板到系统和触发一个命令的时候, 等待的最大最小时间. 如果最大值被忽略, 默认是最小值的4倍. 
+-retry=&lt;duration&gt;        当在和consul api交互的返回值是error的时候, 等待的时间, 默认是5s. 
+-config=&lt;path&gt;           配置文件或者配置目录的路径
+-pid-file=&lt;path&gt;         PID文件的路径
+-log-level=&lt;level&gt;       设置日志级别, 可以是"debug","info", "warn" (default), and "err"
+-dry                     Dump生成的模板到标准输出, 不会生成到磁盘
+-once                    运行consul-template一次后退出, 不以守护进程运行
+-reap                    子进程自动收割<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查看全部选项,使用以下命令</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">consul-template -h<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3><ol>
+<li>查询本地consl实例, 生成模板后重启nginx, 如果consul不可用, 如果api故障则每30s尝试检测一次值, consul-template运行一次后退出</li>
+</ol>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">consul-template -retry 30s -once -consul-addr=10.201.102.198:8500 -template "test.ctmpl:test.out"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><strong>test.ctmpl</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{range service "Faceid"}}
+{{.ID}} {{.Address}}:{{.Port}} check inter 5000 fall 1 rise 2 weight 2{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>test.out</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Faceid 10.201.102.198:9000 check inter 5000 fall 1 rise 2 weight 2
+Faceid 10.201.102.199:9000 check inter 5000 fall 1 rise 2 weight 2
+Faceid 10.201.102.200:9000 check inter 5000 fall 1 rise 2 weight 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li><p>运行consul-temple作为一个服务</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">consul-template -consul-addr=10.201.102.198:8500 -template "test.ctmpl:test.out"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>查询一个实例, 渲染多个模板, 然后重启相关服务</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">consul-template -retry 30s -once -consul-addr=10.201.102.198:8500 -template "test.ctmpl:test.out"\
+ -template "/tmp/redis.ctmpl:/var/redis/redis.conf:service redis restart" \
+ -template "/tmp/haproxy.ctmpl:/var/haproxy/haproxy.conf"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li><p>查询一个实例, dump模板到标准输出, 参数中的-template则会被忽略</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">consul-template -dry -consul-addr=10.201.102.198:8500 -template "test.ctmpl:test.out"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>以上参数除了在命令行使用, 也可以直接配置在文件中, 下面看看Consul-Template的配置文件, 简称HCL(HashiCorp Configuration Language), 它是和JSON兼容的, 下面看个例子: </p>
+<h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4></li>
+</ol>
+<p>Consul-Template 配置文件是使用<a target="_blank" rel="noopener" href="https://github.com/hashicorp/hcl">HashiCorp Configuration Language (HCL)</a>编写的.这意味着<code>Consul Template</code>是和JSON兼容的,查看更多信息请查看 <a target="_blank" rel="noopener" href="https://github.com/hashicorp/hcl">HCL 规范</a></p>
+<p>配置文件语法支持上面的所有的选项,除非在表格中进行标明.</p>
+<pre class="line-numbers language-vim" data-language="vim"><code class="language-vim"><span class="token operator">/</span><span class="token operator">/</span> 这是要连接的Consul Agent的地址<span class="token operator">.</span>默认为<span class="token number">127.0</span><span class="token operator">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">8500</span><span class="token operator">.</span>这是Consul的默认绑定地址和端口<span class="token operator">.</span>
+<span class="token operator">/</span><span class="token operator">/</span> 不建议你直接与 Consul的 Server直接进行交互<span class="token punctuation">,</span>请与本地的Consul Agent进行交互<span class="token operator">.</span>这样做是有一些原因
+<span class="token operator">/</span><span class="token operator">/</span> 最重要的是本地agent可以复用与server的连接<span class="token operator">.</span>减少HTTP的连接数<span class="token operator">.</span>另外这个地址更好记<span class="token operator">.</span>
+consul <span class="token operator">=</span> <span class="token string">"127.0.0.1:8500"</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这是用于连接Consul的ACL token<span class="token operator">.</span> 如果你的集群未启用就不需要设置<span class="token operator">.</span>
+<span class="token operator">/</span><span class="token operator">/</span>
+<span class="token operator">/</span><span class="token operator">/</span> 这个选项也可以通过环境变量 CONSUL_TOKEN 来进行设置
+token <span class="token operator">=</span> <span class="token string">"abcd1234"</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这是监听出发reload事件的信号<span class="token punctuation">,</span>默认值如下所示<span class="token operator">.</span>将这个值设置为空将引起 CT <span class="token punctuation">,</span>从而不监听reload事件
+reload_signal <span class="token operator">=</span> <span class="token string">"SIGHUP"</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这是监听出发core dump事件的信号<span class="token punctuation">,</span>默认值如下所示<span class="token operator">.</span>将这个值设置为空将引起 CT <span class="token punctuation">,</span>从而不监听core dump信号
+dump_signal <span class="token operator">=</span> <span class="token string">"SIGQUIT"</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这是监听出发graceful <span class="token keyword">stop</span>事件的信号<span class="token punctuation">,</span>默认值如下所示<span class="token operator">.</span>将这个值设置为空将引起 CT <span class="token punctuation">,</span>从而不监听graceful <span class="token keyword">stop</span>信号
+kill_signal <span class="token operator">=</span> <span class="token string">"SIGINT"</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这是连接Consul的重试时间<span class="token operator">.</span>Consul Template是高容错的设计<span class="token operator">.</span>这意味着<span class="token punctuation">,</span>出现失败他不会退出<span class="token operator">.</span>而按照
+<span class="token operator">/</span><span class="token operator">/</span> 分布式系统的惯例进行指数补偿和重试来等待集群恢复<span class="token operator">.</span>
+retry <span class="token operator">=</span> <span class="token string">"10s"</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> This <span class="token operator">is</span> the maximum interval <span class="token keyword">to</span> allow <span class="token string">"stale"</span> data<span class="token operator">.</span> By default<span class="token punctuation">,</span> <span class="token keyword">only</span> the
+<span class="token operator">/</span><span class="token operator">/</span> Consul leader will respond <span class="token keyword">to</span> queries<span class="token punctuation">;</span> any requests <span class="token keyword">to</span> a follower will
+<span class="token operator">/</span><span class="token operator">/</span> forward <span class="token keyword">to</span> the leader<span class="token operator">.</span> In large clusters with many requests<span class="token punctuation">,</span> this <span class="token operator">is</span> not <span class="token keyword">as</span>
+<span class="token operator">/</span><span class="token operator">/</span> scalable<span class="token punctuation">,</span> <span class="token keyword">so</span> this option allows any follower <span class="token keyword">to</span> respond <span class="token keyword">to</span> a query<span class="token punctuation">,</span> <span class="token keyword">so</span> long
+<span class="token operator">/</span><span class="token operator">/</span> <span class="token keyword">as</span> the <span class="token keyword">last</span><span class="token operator">-</span>replicated data <span class="token operator">is</span> within these bounds<span class="token operator">.</span> Higher values result <span class="token keyword">in</span>
+<span class="token operator">/</span><span class="token operator">/</span> less cluster load<span class="token punctuation">,</span> but are <span class="token builtin">more</span> likely <span class="token keyword">to</span> have outdated data<span class="token operator">.</span>
+<span class="token operator">/</span><span class="token operator">/</span> 这是允许陈旧数据的最大时间<span class="token operator">.</span>Consul默认只有领袖对请求进行相应<span class="token operator">.</span>所有对追随者的请求将被转发给领袖<span class="token operator">.</span>
+<span class="token operator">/</span><span class="token operator">/</span> 在有大量请求的大型集群中<span class="token punctuation">,</span>这显得不够有扩展性<span class="token operator">.</span>所以这个选项允许任何追随者响应查询<span class="token punctuation">,</span>只要最后复制的数据
+<span class="token operator">/</span><span class="token operator">/</span> 在这个范围内<span class="token operator">.</span>数值越高<span class="token punctuation">,</span>越减少集群负载<span class="token punctuation">,</span>但是更容易接受到过期数据<span class="token operator">.</span>
+max_stale <span class="token operator">=</span> <span class="token string">"10m"</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这是log的等级<span class="token punctuation">,</span>如果你找到了bug<span class="token punctuation">,</span>请打开<span class="token builtin">debug</span> 日志<span class="token punctuation">,</span>这样我们可以更好的定位问题<span class="token operator">.</span>这个选项也可用在命令行<span class="token operator">.</span>
+log_level <span class="token operator">=</span> <span class="token string">"warn"</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这是存放Consul Template 进程的PID文件的路径<span class="token punctuation">,</span>如果你计划发送定制的信号到这个进程这会比较有用<span class="token operator">.</span>
+pid_file <span class="token operator">=</span> <span class="token string">"/path/to/pid"</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这是一个静止定时器<span class="token punctuation">,</span>他定义了在模板渲染之前等待集群达到一致状态的最小和最大时间<span class="token operator">.</span>
+<span class="token operator">/</span><span class="token operator">/</span> 这对于一些变化较大的系统中比较有用<span class="token punctuation">,</span>可以减少模板渲染的次数
+wait <span class="token operator">=</span> <span class="token string">"5s:10s"</span>
+
+
+<span class="token operator">/</span><span class="token operator">/</span> 这是 Vault配置的开始
+<span class="token operator">/</span><span class="token operator">/</span> Vault是HashiCorp的另外一个产品
+vault <span class="token punctuation">{</span>
+  <span class="token operator">/</span><span class="token operator">/</span> This <span class="token operator">is</span> the address of the Vault leader<span class="token operator">.</span> The protocol <span class="token punctuation">(</span><span class="token function">http</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span> portion
+  <span class="token operator">/</span><span class="token operator">/</span> of the address <span class="token operator">is</span> required<span class="token operator">.</span>
+  address <span class="token operator">=</span> <span class="token string">"https://vault.service.consul:8200"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> This <span class="token operator">is</span> the token <span class="token keyword">to</span> use when communicating with the Vault server<span class="token operator">.</span>
+  <span class="token operator">/</span><span class="token operator">/</span> Like other tools that integrate with Vault<span class="token punctuation">,</span> Consul Template makes the
+  <span class="token operator">/</span><span class="token operator">/</span> assumption that you provide it with a Vault token<span class="token punctuation">;</span> it does not have the
+  <span class="token operator">/</span><span class="token operator">/</span> incorporated logic <span class="token keyword">to</span> generate tokens via Vault's auth methods<span class="token operator">.</span>
+  <span class="token operator">/</span><span class="token operator">/</span>
+  <span class="token operator">/</span><span class="token operator">/</span> This value can also <span class="token keyword">be</span> specified via the environment variable VAULT_TOKEN<span class="token operator">.</span>
+  token <span class="token operator">=</span> <span class="token string">"abcd1234"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> This option tells Consul Template <span class="token keyword">to</span> automatically renew the Vault token
+  <span class="token operator">/</span><span class="token operator">/</span> given<span class="token operator">.</span> If you are unfamiliar with Vault's architecture<span class="token punctuation">,</span> Vault requires
+  <span class="token operator">/</span><span class="token operator">/</span> tokens <span class="token keyword">be</span> renewed at some regular interval or they will <span class="token keyword">be</span> revoked<span class="token operator">.</span> Consul
+  <span class="token operator">/</span><span class="token operator">/</span> Template will automatically renew the token at half the lease duration of
+  <span class="token operator">/</span><span class="token operator">/</span> the token<span class="token operator">.</span> The default value <span class="token operator">is</span> true<span class="token punctuation">,</span> but this option can <span class="token keyword">be</span> disabled <span class="token keyword">if</span>
+  <span class="token operator">/</span><span class="token operator">/</span> you want <span class="token keyword">to</span> renew the Vault token using an out<span class="token operator">-</span>of<span class="token operator">-</span>band process<span class="token operator">.</span>
+  <span class="token operator">/</span><span class="token operator">/</span>
+  <span class="token operator">/</span><span class="token operator">/</span> Note that secrets specified <span class="token keyword">in</span> a template <span class="token punctuation">(</span>using <span class="token punctuation">{</span><span class="token punctuation">{</span>secret<span class="token punctuation">}</span><span class="token punctuation">}</span> <span class="token keyword">for</span> example<span class="token punctuation">)</span>
+  <span class="token operator">/</span><span class="token operator">/</span> are always renewed<span class="token punctuation">,</span> even <span class="token keyword">if</span> this option <span class="token operator">is</span> <span class="token keyword">set</span> <span class="token keyword">to</span> false<span class="token operator">.</span> This option <span class="token keyword">only</span>
+  <span class="token operator">/</span><span class="token operator">/</span> applies <span class="token keyword">to</span> the <span class="token builtin">top</span><span class="token operator">-</span>level Vault token itself<span class="token operator">.</span>
+  renew <span class="token operator">=</span> true
+
+  <span class="token operator">/</span><span class="token operator">/</span> This section details the SSL <span class="token keyword">options</span> <span class="token keyword">for</span> connecting <span class="token keyword">to</span> the Vault server<span class="token operator">.</span>
+  <span class="token operator">/</span><span class="token operator">/</span> Please see the SSL <span class="token keyword">options</span> below <span class="token keyword">for</span> <span class="token builtin">more</span> information <span class="token punctuation">(</span>they are the same<span class="token punctuation">)</span><span class="token operator">.</span>
+  <span class="token builtin">ssl</span> <span class="token punctuation">{</span>
+    <span class="token operator">/</span><span class="token operator">/</span> <span class="token operator">.</span><span class="token operator">.</span><span class="token operator">.</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这部分配置请求的基本的权限验证信息
+auth <span class="token punctuation">{</span>
+  enabled  <span class="token operator">=</span> true
+  username <span class="token operator">=</span> <span class="token string">"test"</span>
+  password <span class="token operator">=</span> <span class="token string">"test"</span>
+<span class="token punctuation">}</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这部分配置连接到Consul服务器的SSL信息<span class="token operator">.</span>
+<span class="token builtin">ssl</span> <span class="token punctuation">{</span>
+  <span class="token operator">/</span><span class="token operator">/</span> 使用SSL需要先打开这个开关
+  enabled <span class="token operator">=</span> true
+
+  <span class="token operator">/</span><span class="token operator">/</span> This enables SSL peer verification<span class="token operator">.</span> The default value <span class="token operator">is</span> <span class="token string">"true"</span><span class="token punctuation">,</span> which
+  <span class="token operator">/</span><span class="token operator">/</span> will check the global CA chain <span class="token keyword">to</span> <span class="token keyword">make</span> sure the given certificates are
+  <span class="token operator">/</span><span class="token operator">/</span> valid<span class="token operator">.</span> If you are using a self<span class="token operator">-</span>signed certificate that you have not added
+  <span class="token operator">/</span><span class="token operator">/</span> <span class="token keyword">to</span> the CA chain<span class="token punctuation">,</span> you may want <span class="token keyword">to</span> disable SSL verification<span class="token operator">.</span> However<span class="token punctuation">,</span> please
+  <span class="token operator">/</span><span class="token operator">/</span> understand this <span class="token operator">is</span> a potential security vulnerability<span class="token operator">.</span>
+  verify <span class="token operator">=</span> false
+
+  <span class="token operator">/</span><span class="token operator">/</span> This <span class="token operator">is</span> the <span class="token builtin">path</span> <span class="token keyword">to</span> the certificate <span class="token keyword">to</span> use <span class="token keyword">to</span> authenticate<span class="token operator">.</span> If just a
+  <span class="token operator">/</span><span class="token operator">/</span> certificate <span class="token operator">is</span> provided<span class="token punctuation">,</span> it <span class="token operator">is</span> assumed <span class="token keyword">to</span> contain both the certificate and
+  <span class="token operator">/</span><span class="token operator">/</span> the <span class="token builtin">key</span> <span class="token keyword">to</span> convert <span class="token keyword">to</span> an X509 certificate<span class="token operator">.</span> If both the certificate and
+  <span class="token operator">/</span><span class="token operator">/</span> <span class="token builtin">key</span> are specified<span class="token punctuation">,</span> Consul Template will automatically combine them into an
+  <span class="token operator">/</span><span class="token operator">/</span> X509 certificate <span class="token keyword">for</span> you<span class="token operator">.</span>
+  cert <span class="token operator">=</span> <span class="token string">"/path/to/client/cert"</span>
+  <span class="token builtin">key</span> <span class="token operator">=</span> <span class="token string">"/path/to/client/key"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> This <span class="token operator">is</span> the <span class="token builtin">path</span> <span class="token keyword">to</span> the certificate authority <span class="token keyword">to</span> use <span class="token keyword">as</span> a CA<span class="token operator">.</span> This <span class="token operator">is</span>
+  <span class="token operator">/</span><span class="token operator">/</span> useful <span class="token keyword">for</span> self<span class="token operator">-</span>signed certificates or <span class="token keyword">for</span> organizations using their own
+  <span class="token operator">/</span><span class="token operator">/</span> internal certificate authority<span class="token operator">.</span>
+  ca_cert <span class="token operator">=</span> <span class="token string">"/path/to/ca"</span>
+<span class="token punctuation">}</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 设置连接到syslog服务器的配置
+<span class="token operator">/</span><span class="token operator">/</span> 用于进行日志记录syslog <span class="token punctuation">{</span>
+  <span class="token operator">/</span><span class="token operator">/</span> 打开开关
+  enabled <span class="token operator">=</span> true
+
+  <span class="token operator">/</span><span class="token operator">/</span> 设备名称
+  facility <span class="token operator">=</span> <span class="token string">"LOCAL5"</span>
+<span class="token punctuation">}</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> This block defines the configuration <span class="token keyword">for</span> de<span class="token operator">-</span>duplication <span class="token keyword">mode</span><span class="token operator">.</span> Please see the
+<span class="token operator">/</span><span class="token operator">/</span> de<span class="token operator">-</span>duplication <span class="token keyword">mode</span> documentation <span class="token keyword">later</span> <span class="token keyword">in</span> the README <span class="token keyword">for</span> <span class="token builtin">more</span> information
+<span class="token operator">/</span><span class="token operator">/</span> <span class="token keyword">on</span> how de<span class="token operator">-</span>duplication <span class="token keyword">mode</span> operates<span class="token operator">.</span>
+deduplicate <span class="token punctuation">{</span>
+  <span class="token operator">/</span><span class="token operator">/</span> This enables de<span class="token operator">-</span>duplication <span class="token keyword">mode</span><span class="token operator">.</span> Specifying any other <span class="token keyword">options</span> also enables
+  <span class="token operator">/</span><span class="token operator">/</span> de<span class="token operator">-</span>duplication <span class="token keyword">mode</span><span class="token operator">.</span>
+  enabled <span class="token operator">=</span> true
+
+  <span class="token operator">/</span><span class="token operator">/</span> This <span class="token operator">is</span> the prefix <span class="token keyword">to</span> the <span class="token builtin">path</span> <span class="token keyword">in</span> Consul's KV store where de<span class="token operator">-</span>duplication
+  <span class="token operator">/</span><span class="token operator">/</span> templates will <span class="token keyword">be</span> <span class="token keyword">pre</span><span class="token operator">-</span>rendered and stored<span class="token operator">.</span>
+  prefix <span class="token operator">=</span> <span class="token string">"consul-template/dedup/"</span>
+<span class="token punctuation">}</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> This block defines the configuration <span class="token keyword">for</span> exec <span class="token keyword">mode</span><span class="token operator">.</span> Please see the exec <span class="token keyword">mode</span>
+<span class="token operator">/</span><span class="token operator">/</span> documentation at the bottom of this README <span class="token keyword">for</span> <span class="token builtin">more</span> information <span class="token keyword">on</span> how exec
+<span class="token operator">/</span><span class="token operator">/</span> <span class="token keyword">mode</span> operates and the caveats of this <span class="token keyword">mode</span><span class="token operator">.</span>
+exec <span class="token punctuation">{</span>
+  <span class="token operator">/</span><span class="token operator">/</span> This <span class="token operator">is</span> the command <span class="token keyword">to</span> exec <span class="token keyword">as</span> a child process<span class="token operator">.</span> There can <span class="token keyword">be</span> <span class="token keyword">only</span> one
+  <span class="token operator">/</span><span class="token operator">/</span> command per Consul Template process<span class="token operator">.</span>
+  command <span class="token operator">=</span> <span class="token string">"/usr/bin/app"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> This <span class="token operator">is</span> a random splay <span class="token keyword">to</span> wait before killing the command<span class="token operator">.</span> The default
+  <span class="token operator">/</span><span class="token operator">/</span> value <span class="token operator">is</span> <span class="token number">0</span> <span class="token punctuation">(</span>no wait<span class="token punctuation">)</span><span class="token punctuation">,</span> but large clusters should consider setting a splay
+  <span class="token operator">/</span><span class="token operator">/</span> value <span class="token keyword">to</span> prevent <span class="token keyword">all</span> child processes from reloading at the same time when
+  <span class="token operator">/</span><span class="token operator">/</span> data <span class="token keyword">changes</span> occur<span class="token operator">.</span> When this value <span class="token operator">is</span> <span class="token keyword">set</span> <span class="token keyword">to</span> non<span class="token operator">-</span>zero<span class="token punctuation">,</span> Consul Template
+  <span class="token operator">/</span><span class="token operator">/</span> will wait a random period of time <span class="token keyword">up</span> <span class="token keyword">to</span> the splay value before reloading
+  <span class="token operator">/</span><span class="token operator">/</span> or killing the child process<span class="token operator">.</span> This can <span class="token keyword">be</span> used <span class="token keyword">to</span> prevent the thundering
+  <span class="token operator">/</span><span class="token operator">/</span> herd problem <span class="token keyword">on</span> applications that do not gracefully reload<span class="token operator">.</span>
+  splay <span class="token operator">=</span> <span class="token string">"5s"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> This defines the signal that will <span class="token keyword">be</span> sent <span class="token keyword">to</span> the child process when a
+  <span class="token operator">/</span><span class="token operator">/</span> <span class="token keyword">change</span> occurs <span class="token keyword">in</span> a watched template<span class="token operator">.</span> The signal will <span class="token keyword">only</span> <span class="token keyword">be</span> sent after
+  <span class="token operator">/</span><span class="token operator">/</span> the process <span class="token operator">is</span> started<span class="token punctuation">,</span> and the process will <span class="token keyword">only</span> <span class="token keyword">be</span> started after <span class="token keyword">all</span>
+  <span class="token operator">/</span><span class="token operator">/</span> dependent templates have been rendered at least once<span class="token operator">.</span> The default value
+  <span class="token operator">/</span><span class="token operator">/</span> <span class="token operator">is</span> <span class="token string">""</span> <span class="token punctuation">(</span>empty or nil<span class="token punctuation">)</span><span class="token punctuation">,</span> which tells Consul Template <span class="token keyword">to</span> restart the child
+  <span class="token operator">/</span><span class="token operator">/</span> process instead of sending it a signal<span class="token operator">.</span> This <span class="token operator">is</span> useful <span class="token keyword">for</span> legacy
+  <span class="token operator">/</span><span class="token operator">/</span> applications or applications that cannot properly reload their
+  <span class="token operator">/</span><span class="token operator">/</span> configuration without a full reload<span class="token operator">.</span>
+  reload_signal <span class="token operator">=</span> <span class="token string">"SIGUSR1"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> This defines the signal sent <span class="token keyword">to</span> the child process when Consul Template <span class="token operator">is</span>
+  <span class="token operator">/</span><span class="token operator">/</span> gracefully shutting down<span class="token operator">.</span> The application should begin a graceful cleanup<span class="token operator">.</span>
+  <span class="token operator">/</span><span class="token operator">/</span> If the application does not terminate before the `kill_timeout`<span class="token punctuation">,</span> it will
+  <span class="token operator">/</span><span class="token operator">/</span> <span class="token keyword">be</span> terminated <span class="token punctuation">(</span>effectively <span class="token string">"kill -9"</span><span class="token punctuation">)</span><span class="token operator">.</span> The default value <span class="token operator">is</span> <span class="token string">"SIGTERM"</span><span class="token operator">.</span>
+  kill_signal <span class="token operator">=</span> <span class="token string">"SIGINT"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> This defines the amount of time <span class="token keyword">to</span> wait <span class="token keyword">for</span> the child process <span class="token keyword">to</span> gracefully
+  <span class="token operator">/</span><span class="token operator">/</span> terminate when Consul Template exits<span class="token operator">.</span> After this specified time<span class="token punctuation">,</span> the child
+  <span class="token operator">/</span><span class="token operator">/</span> process will <span class="token keyword">be</span> force<span class="token operator">-</span>killed <span class="token punctuation">(</span>effectively <span class="token string">"kill -9"</span><span class="token punctuation">)</span><span class="token operator">.</span> The default value <span class="token operator">is</span>
+  <span class="token operator">/</span><span class="token operator">/</span> <span class="token string">"30s"</span><span class="token operator">.</span>
+  kill_timeout <span class="token operator">=</span> <span class="token string">"2s"</span>
+<span class="token punctuation">}</span>
+
+<span class="token operator">/</span><span class="token operator">/</span> 这部分定义了对模板的配置<span class="token punctuation">,</span>和其他配置块不同<span class="token operator">.</span>这部分可以针对不同模板配置多次<span class="token operator">.</span>也可以在CLI命令
+<span class="token operator">/</span><span class="token operator">/</span> 直接进行配置
+template <span class="token punctuation">{</span>
+  <span class="token operator">/</span><span class="token operator">/</span> 这是输入模板的配置文件路径<span class="token punctuation">,</span>必选项
+  <span class="token keyword">source</span> <span class="token operator">=</span> <span class="token string">"/path/on/disk/to/template.ctmpl"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> 这是源模板渲染之后存放的路径<span class="token punctuation">,</span>如果父目录不存在Consul Template会尝试进行创建
+  destination <span class="token operator">=</span> <span class="token string">"/path/on/disk/where/template/will/render.txt"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> This <span class="token operator">is</span> the optional command <span class="token keyword">to</span> run when the template <span class="token operator">is</span> rendered<span class="token operator">.</span> The
+  <span class="token operator">/</span><span class="token operator">/</span> command will <span class="token keyword">only</span> run <span class="token keyword">if</span> the resulting template <span class="token keyword">changes</span><span class="token operator">.</span> The command must
+  <span class="token operator">/</span><span class="token operator">/</span> <span class="token keyword">return</span> within 30s <span class="token punctuation">(</span>configurable<span class="token punctuation">)</span><span class="token punctuation">,</span> and it must have a successful <span class="token keyword">exit</span> code<span class="token operator">.</span>
+  <span class="token operator">/</span><span class="token operator">/</span> Consul Template <span class="token operator">is</span> not a replacement <span class="token keyword">for</span> a process monitor or init system<span class="token operator">.</span>
+  <span class="token operator">/</span><span class="token operator">/</span> 这是当模板渲染完成后可选的要执行的命令<span class="token operator">.</span>这个命令只会在模板发生改变后才会运行<span class="token operator">.</span>这个命令必须要在<span class="token number">30</span>秒
+  <span class="token operator">/</span><span class="token operator">/</span> 内进行返回<span class="token punctuation">(</span>可配置<span class="token punctuation">)</span><span class="token punctuation">,</span>必须返回一个成功的退出码<span class="token operator">.</span>Consul Template不能替代进程监视或者init 系统
+  <span class="token operator">/</span><span class="token operator">/</span> 的功能
+  command <span class="token operator">=</span> <span class="token string">"restart service foo"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> 这是最大的等待命令返回的时间<span class="token punctuation">,</span>默认是<span class="token number">30</span>秒
+  command_timeout <span class="token operator">=</span> <span class="token string">"60s"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> 这是渲染后的文件的权限<span class="token punctuation">,</span>如果不设置<span class="token punctuation">,</span>Consul Template将去匹配之前已经存在的文件的权限<span class="token operator">.</span>
+  <span class="token operator">/</span><span class="token operator">/</span> 如果文件不存在<span class="token punctuation">,</span>权限会被设置为 <span class="token number">0644</span>
+  perms <span class="token operator">=</span> <span class="token number">0600</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> 这个选项对渲染之前的文件进行备份<span class="token operator">.</span>他保持一个备份<span class="token operator">.</span>
+  <span class="token operator">/</span><span class="token operator">/</span> 这个选项在发生意外更高时<span class="token punctuation">,</span>有一个回滚策略<span class="token operator">.</span>
+  <span class="token builtin">backup</span> <span class="token operator">=</span> true
+
+  <span class="token operator">/</span><span class="token operator">/</span> 模板的分隔符<span class="token punctuation">,</span>默认是 <span class="token string">"{{"</span>和<span class="token string">"}}"</span><span class="token operator">.</span>但是对于一些模板用其他的分隔符可能更好
+  <span class="token operator">/</span><span class="token operator">/</span> 可以避免与本身的冲突
+  left_delimiter  <span class="token operator">=</span> <span class="token string">"{{"</span>
+  right_delimiter <span class="token operator">=</span> <span class="token string">"}}"</span>
+
+  <span class="token operator">/</span><span class="token operator">/</span> 这是最小和最大等待渲染一个新模板和执行命令的时间<span class="token operator">.</span>使用 分号 个号<span class="token operator">.</span>如果忽略最大值<span class="token punctuation">,</span>最大
+  <span class="token operator">/</span><span class="token operator">/</span> 值会被设置为最小值的<span class="token number">4</span>倍<span class="token operator">.</span>这个选项没有默认值<span class="token operator">.</span>这个值相对全局所以的等待时间有最高优先级
+  wait <span class="token operator">=</span> <span class="token string">"2s:6s"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意: 不是所有的选项都是必选的.例如: 如果你没有使用Vault你不用设置这一块. 类似的你没有使用syslog系统你也不需要指定syslog配置.</p>
+<p>为了更加安全,<code>token</code>也可以从环境变量里读取,使用 <code>CONSUL_TOKEN</code> 和 <code>VAULT_TOKEN</code>.强烈建议你不要把token放到未加密的文本配置文件中.</p>
+<h3 id="模版语法"><a href="#模版语法" class="headerlink" title="模版语法"></a>模版语法</h3><p>Consul Template 使用了Go的模板语法.如果你对他的语法不熟悉建议你读下文档.他的语法看起来与 Mustache, Handlebars, 或者 Liquid 类似.</p>
+<p>在Go 提供的模板函数之外,Consul Template暴露了以下的函数:</p>
+<h3 id="API-函数"><a href="#API-函数" class="headerlink" title="API 函数"></a>API 函数</h3><h4 id="datacenters"><a href="#datacenters" class="headerlink" title="datacenters"></a>datacenters</h4><p>查询目录中的所有数据中心.使用以下语法:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{datacenters}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="file"><a href="#file" class="headerlink" title="file"></a>file</h4><p>读取并输出磁盘上的本地文件,如果无法读取产生一个错误.使用如下语法</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{file "/path/to/local/file"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这个例子将输出 <code>/path/to/local/file</code> 文件内容到模板. <strong>注意:这不会在嵌套模板中被处理</strong></p>
+<h4 id="key"><a href="#key" class="headerlink" title="key"></a>key</h4><p>查询Consul指定key的值,如果key的值不能转换为字符串,将产生错误.使用如下语法:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{key "service/redis/maxconns@east-aws"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>上面的例子查询了在<code>east-aws</code>数据中心的 <code>service/redis/maxconns</code>的值.如果忽略数据中心参数,将会查询本地数据中心的值:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{key "service/redis/maxconns"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Consul键值结构的美妙在于,这完全取决于你!</p>
+<h4 id="key-or-default"><a href="#key-or-default" class="headerlink" title="key_or_default"></a>key_or_default</h4><p>查询Consul中指定的key的值,如果key不存在,则返回默认值.使用方式如下</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{key_or_default "service/redis/maxconns@east-aws" "5"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>注意Consul Template使用了多个阶段的运算.在第一阶段的运算如果Consul没有返回值,则会一直使用默认值.后续模板解析中如果值存在了则会读取真实的值.这很重要,运维Consul Templae不会因为key_or_default没找到key而阻塞模板的的渲染.即使key存在如果Consul没有按时返回这个数据,也会使用默认值来进行替代.</p>
+<h4 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h4><p>查看Consul的所有以指定前缀开头的<code>key-value</code>对.如果有值无法转换成字符串则会产生一个错误:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{range ls "service/redis@east-aws"}}
+{{.Key}} {{.Value}}{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果Consul实例在<code>east-aws</code>数据中心存在这个结构<code>service/redis</code>,渲染后的模板应该类似这样:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">minconns 2
+maxconns 12<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果你忽略数据中心属性,则会返回本地数据中心的查询结果.</p>
+<h4 id="node"><a href="#node" class="headerlink" title="node"></a>node</h4><p>查询目录中的一个节点信息</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{node "node1"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果未指定任何参数,则当前agent所在节点将会被返回:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{node}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>你可以指定一个可选的参数来指定数据中心:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{node "node1" "@east-aws"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果指定的节点没有找到则会返回<code>nil</code>.如果节点存在就会列出节点的信息和节点提供的服务.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{with node}}{{.Node.Node}} ({{.Node.Address}}){{range .Services}}
+  {{.Service}} {{.Port}} ({{.Tags | join ","}}){{end}}
+{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="nodes"><a href="#nodes" class="headerlink" title="nodes"></a>nodes</h4><p>查询目录中的全部节点,使用如下语法</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{nodes}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这个例子会查询Consul的默认数据中心.你可以使用可选参数指定一个可选参数来指定数据中心:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{nodes "@east-aws"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这个例子会查询<code>east-aws</code>数据中心的所有几点.</p>
+<h4 id="secret"><a href="#secret" class="headerlink" title="secret"></a>secret</h4><p>查询<code>Vault</code>中指定路径的密匙.如果指定的路径不存在或者<code>Vault</code>的Token没有足够权限去读取指定的路径,将会产生一个错误.如果路径存在但是key不存在则返回.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{with secret "secret/passwords"}}{{.Data.password}}{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以使用如下字段:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">LeaseID - the unique lease identifier
+LeaseDuration - the number of seconds the lease is valid
+Renewable - if the secret is renewable
+Data - the raw data - this is a map[string]interface{}, so it can be queried using Go's templating "dot notation"
+If the map key has dots "." in it, you need to access the value using the index function:
+
+{{index .Data "my.key.with.dots"}}
+If additional arguments are passed to the function, then the operation is assumed to be a write operation instead of a read operation. The write operation must return data in order to be valid. This is especially useful for the PKI secret backend, for example.
+
+{{ with secret "pki/issue/my-domain-dot-com" "common_name=foo.example.com" }}
+{{ .Data.certificate }}
+{{ end }}
+The parameters must be key=value pairs, and each pair must be its own argument to the function:
+
+{{ secret "path/" "a=b" "c=d" "e=f" }}
+Please always consider the security implications of having the contents of a secret in plain-text on disk. If an attacker is able to get access to the file, they will have access to plain-text secrets.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Please note that Vault does not support blocking queries. As a result, Consul Template will not immediately reload in the event a secret is changed as it does with Consul’s key-value store. Consul Template will fetch a new secret at half the lease duration of the original secret. For example, most items in Vault’s generic secret backend have a default 30 day lease. This means Consul Template will renew the secret every 15 days. As such, it is recommended that a smaller lease duration be used when generating the initial secret to force Consul Template to renew more often.</p>
+<h4 id="secrets"><a href="#secrets" class="headerlink" title="secrets"></a>secrets</h4><p>Query Vault to list the secrets at the given path. Please note this requires Vault 0.5+ and the endpoint you want to list secrets must support listing. Not all endpoints support listing. The result is the list of secret names as strings.</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{range secrets "secret/"}}{{.}}{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>The trailing slash is optional in the template, but the generated secret dependency will always have a trailing slash in log output.</p>
+<p>To iterate and list over every secret in the generic secret backend in Vault, for example, you would need to do something like this:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{range secrets "secret/"}}
+{{with secret (printf "secret/%s" .)}}
+{{range $k, $v := .Data}}
+{{$k}}: {{$v}}
+{{end}}
+{{end}}
+{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>You should probably never do this. Please also note that Vault does not support blocking queries. To understand the implications, please read the note at the end of the secret function.</p>
+<h4 id="service"><a href="#service" class="headerlink" title="service"></a>service</h4><p>查询Consul中匹配表达式的服务.语法如下:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{service "release.web@east-aws"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>上面的例子查询Consul中,在<code>east-aws</code>数据中心存在的健康的 <code>web</code>服务.tag和数据中心参数是可选的.从当前数据中心查询所有节点的<code>web</code>服务而不管tag,查询语法如下:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{service "web"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这个函数返回<code>[]*HealthService</code>结构.可按照如下方式应用到模板:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{range service "web@data center"}}
+server {{.Name}} {{.Address}}:{{.Port}}{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>产生如下输出:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">server nyc_web_01 123.456.789.10:8080
+server nyc_web_02 456.789.101.213:8080<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>默认值会返回健康的服务,如果你想获取所有服务,可以增加any选项,如下:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{service "web" "any"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这样就会返回注册过的所有服务,而不论他的状态如何.</p>
+<p>如果你想过滤指定的一个或者多个健康状态,你可以通过逗号隔开多个健康状态:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{service "web" "passing, warning"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这样将会返回被他们的节点和服务级别的检查定义标记为 “passing” 或者 “warning”的服务. 请注意逗号是 OR而不是AND的意思.</p>
+<p>指定了超过一个状态过滤,并包含<code>any</code>将会返回一个错误.因为<code>any</code>是比所有状态更高级的过滤.</p>
+<p>后面这2种方式有些架构上的不同:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{service "web"}}
+{{service "web" "passing"}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>前者会返回Consul认为<code>healthy</code>和<code>passing</code>的所有服务.后者将返回所有已经在Consul注册的服务.然后会执行一个客户端的过滤.通常如果你想获取健康的服务,你应该不要使用<code>passing</code>参数,直接忽略第三个参数即可.然而第三个参数在你想查询 <code>passing</code>或者<code>warning</code>的服务会比较有用,如下:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{service "web" "passing, warning"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>服务的状态也是可见的,如果你想自己做一些额外的过滤,语法如下:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{range service "web" "any"}}
+{{if eq .Status "critical"}}
+// Critical state!{{end}}
+{{if eq .Status "passing"}}
+// Ok{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行命令时,在Consul将服务设置为维护模式,只需要在你的命令上包上Consul的 maint 调用:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#!/bin/sh
+set -e
+consul maint -enable -service web -reason "Consul Template updated"
+service nginx reload
+consul maint -disable -service web<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>另外如果你没有安装Consul agent,你可以直接调用API请求:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#!/bin/sh
+set -e
+curl -X PUT "http://$CONSUL_HTTP_ADDR/v1/agent/service/maintenance/web?enable=true&amp;reason=Consul+Template+Updated"
+service nginx reload
+curl -X PUT "http://$CONSUL_HTTP_ADDR/v1/agent/service/maintenance/web?enable=false"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="services"><a href="#services" class="headerlink" title="services"></a>services</h4><p>查询Consul目录中的所有服务,使用如下语法:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{services}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这个例子将查询Consul的默认数据中心,你可以指定一个可选参数来指定数据中心:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{services "@east-aws"}}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>请注意: <code>services</code>函数与<code>service</code>是不同的,<code>service</code>接受更多参数并且查询监控的服务列表.这个查询Consul目录并返回一个服务的tag的Map,如下:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{range services}}
+{{.Name}}
+{{range .Tags}}
+  {{.}}{{end}}
+{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h4><p>查询所有指定前缀的key-value值对,如果其中的值有无法转换为字符串的则引发错误:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{{range tree "service/redis@east-aws"}}
+{{.Key}} {{.Value}}{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果Consul实例在<code>east-aws</code>数据中心有一个<code>service/redis</code>结构,模板的渲染结果类似下面:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">minconns 2
+maxconns 12
+nested/config/value "value"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>和<code>ls</code>不同,<code>tree</code>返回前缀下的所有key.和Unix的tree命令比较像.如果忽略数据中心参数,则会使用本地数据中心</p>
+<p><a target="_blank" rel="noopener" href="https://book-consul-guide.vnzmi.com/11_consul_template.html">查看更多</a></p>
+<p><a target="_blank" rel="noopener" href="https://book-consul-guide.vnzmi.com/11_consul_template.html">项目Github地址</a></p>
+<h3 id="Haproxy-实例"><a href="#Haproxy-实例" class="headerlink" title="Haproxy 实例"></a>Haproxy 实例</h3><p>根据haproxy服务的配置文件创建一个consul-template模版渲染文件: <code>haproxy.ctmpl</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># Consul Haproxy configured
+
+global
+        maxconn         20480
+        ulimit-n        65535
+        log             127.0.0.1 local5
+        uid             200
+        gid             200
+        chroot          /usr/local/haproxy
+        nbproc          1
+        daemon
+        pidfile         /usr/local/haproxy/logs/haproxy.pid
+
+defaults
+        log             global
+        mode            http
+        option          httplog
+        option          dontlognull
+        option          forwardfor
+        option          abortonclose
+        retries         3
+        maxconn         3000
+        stats           enable
+        stats           hide-version
+        stats   uri     /admin
+        stats   auth    admin:admin
+        stats   refresh 10s
+        balance         roundrobin
+        timeout connect 5000ms
+        timeout client 50000ms
+        timeout server 50000ms
+        timeout check 2000ms
+
+listen web_haproxy
+        bind 0.0.0.0:8080
+        mode http
+        log     127.0.0.1 local5 err
+        stats   refresh 5s
+        stats   uri /admin
+        stats   realm liang lian
+        stats   auth admin:admin
+        stats   hide-version
+        stats   admin if TRUE
+
+frontend consul
+        bind    0.0.0.0:8500
+        mode    http
+        log     global
+        default_backend consul-cluster
+
+backend consul-cluster
+        mode http
+        {{range service "Faceid"}}
+        server {{.ID}} {{.Address}}:{{.Port}} check inter 5000 fall 1 rise 2 weight 2{{end}}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行consul-template作为一个服务,通过上面的渲染模版渲染一个haproxy.cfg的配置文件, 然后重启haproxy服务</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">consul-template -consul-addr=10.201.102.185:8500 -template "/root/haproxy.ctmpl:/etc/haproxy.cfg:service haproxy restart"
+10.201.102.185 是consul集群的VIP, 为了避免单独调某一台服务器服务器出现故障后consul-template无法工作. <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>渲染后的<code>haproxy.cfg</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># Consul Haproxy configured
+
+global
+        maxconn         20480
+        ulimit-n        65535
+        log             127.0.0.1 local5
+        uid             200
+        gid             200
+        chroot          /usr/local/haproxy
+        nbproc          1
+        daemon
+        pidfile         /usr/local/haproxy/logs/haproxy.pid
+
+defaults
+        log             global
+        mode            http
+        option          httplog
+        option          dontlognull
+        option          forwardfor
+        option          abortonclose
+        retries         3
+        maxconn         3000
+        stats           enable
+        stats           hide-version
+        stats   uri     /admin
+        stats   auth    admin:admin
+        stats   refresh 10s
+        balance         roundrobin
+        timeout connect 5000ms
+        timeout client 50000ms
+        timeout server 50000ms
+        timeout check 2000ms
+
+listen web_haproxy
+        bind 0.0.0.0:8080
+        mode http
+        log     127.0.0.1 local5 err
+        stats   refresh 5s
+        stats   uri /admin
+        stats   realm liang lian
+        stats   auth admin:admin
+        stats   hide-version
+        stats   admin if TRUE
+
+frontend consul
+        bind    0.0.0.0:8500
+        mode    http
+        log     global
+        default_backend consul-cluster
+
+backend consul-cluster
+        mode http
+
+        server Faceid 10.201.102.198:9000 check inter 5000 fall 1 rise 2 weight 2
+        server Faceid 10.201.102.199:9000 check inter 5000 fall 1 rise 2 weight 2
+        server Faceid 10.201.102.200:9000 check inter 5000 fall 1 rise 2 weight 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>整个就是搭建consul集群, 平台中的服务会注册到consul集群中, haproxy避免consul-template调consul时出现单点故障consul-template无法工作做的高可用, Consul-template就是能在整个平台的各个系统和应用中使用, 查询consul集群来获取平台上各个应用的存活状态和IP. </p>
+<p>整套下来实现了两个重点: </p>
+<ul>
+<li>实现了中心服务注册查询</li>
+<li>平台中其他节点的查询服务和配置文件自动更新</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Kinson</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.kinson.fun/2021/06/18/consul-xue-xi-bi-ji/">https://www.kinson.fun/2021/06/18/consul-xue-xi-bi-ji/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Kinson</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Consul/">
+                                    <span class="chip bg-color">Consul</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'daaf8c1af15f96abdb79',
+        clientSecret: '101569b8c156b6253954e88e1b45f7c4bbd2a078',
+        repo: 'Pensieve-Comments',
+        owner: 'lqs429521992',
+        admin: "lqs429521992",
+        id: '2021-06-18T20-39-07',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/07/06/jin-cheng-xian-cheng-xie-cheng/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="进程、线程、协程">
+                        
+                        <span class="card-title">进程、线程、协程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-07-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    操作系统
+                                </a>
+                            
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    计算机基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BF%9B%E7%A8%8B/">
+                        <span class="chip bg-color">进程</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BA%BF%E7%A8%8B/">
+                        <span class="chip bg-color">线程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/06/15/lvm-xue-xi-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="LVM学习笔记">
+                        
+                        <span class="card-title">LVM学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/LVM/">
+                        <span class="chip bg-color">LVM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">Kinson Liu</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">35k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
